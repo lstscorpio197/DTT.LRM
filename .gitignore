@@ -1,2 +1,4 @@
 .vs/DTT.LRM/config/applicationhost.config
 .vs/DTT.LRM/v16/.suo
+DTT.LRM.Web/App_Data/Logs/Logs.txt
+DTT.LRM.EntityFramework/obj/Debug/DTT.LRM.Migrations.Add_SystemData.resources

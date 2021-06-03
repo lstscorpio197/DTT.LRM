@@ -4,14 +4,29 @@ using Abp.DynamicEntityProperties;
 using Abp.Zero.EntityFramework;
 using DTT.LRM.Authorization.Roles;
 using DTT.LRM.Authorization.Users;
+using DTT.LRM.BookCategories;
+using DTT.LRM.BookClassifies;
+using DTT.LRM.BookFields;
+using DTT.LRM.Employees;
 using DTT.LRM.MultiTenancy;
+using DTT.LRM.PositionQuotas;
+using DTT.LRM.Positions;
+using DTT.LRM.Publishers;
+using DTT.LRM.Readers;
 
 namespace DTT.LRM.EntityFramework
 {
     public class LRMDbContext : AbpZeroDbContext<Tenant, Role, User>
     {
         //TODO: Define an IDbSet for your Entities...
-
+        public DbSet<BookClassify> BookClassifies { get; set; }
+        public DbSet<BookField> BookFields { get; set; }
+        public DbSet<BookCategory> BookCategories { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<PositionQuota> PositionQuotas { get; set; }
+        public DbSet<Reader> Readers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
          *   But it may cause problems when working Migrate.exe of EF. If you will apply migrations on command line, do not
