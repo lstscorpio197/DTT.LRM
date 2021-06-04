@@ -1,0 +1,54 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model DTT.LRM.Web.Models.BookClassifies.CreateOrUpdateModel 
+@{ 
+    ViewBag.ActiveMenu = PageNames.BookClassifies; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/BookClassifies/CreateOrUpdate.js")
+}
+<form name="BookClassifyForm" role="form" novalidate class="form-validation">
+    @*<ul class="nav nav-tabs tab-nav-right" role="tablist">
+        <li role="presentation" class="active"><a href="#edit-user-details" data-toggle="tab">User Details</a></li>
+        <li role="presentation"><a href="#edit-user-roles" data-toggle="tab">User Roles</a></li>
+    </ul>*@
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" value="@Model.BookClassify.Id" />
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="code" type="text" name="Code" value="@(Model.BookClassify.Code > 0 ? Model.BookClassify.Code.ToString():"")" class="validate form-control">
+                            <label for="code" class="form-label">Mã phân loại</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="name" type="text" name="Name" value="@Model.BookClassify.Name" class="validate form-control">
+                            <label for="name" class="form-label">Tên phân loại</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="">
+                            <input id="status" type="checkbox" name="Status" value="true" @(Model.BookClassify.Status?"checked":"") class="form-control" />
+                            <label for="status" class="form-label">Đang sử dụng</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<button type="button" class="submit">Thêm mới</button>

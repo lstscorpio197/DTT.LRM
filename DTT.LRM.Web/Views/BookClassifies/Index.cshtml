@@ -1,0 +1,23 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model DTT.LRM.Web.Models.Users.UserListViewModel
+@{
+    ViewBag.ActiveMenu = PageNames.BookClassifies; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/BookClassifies/Index.js")
+}
+<table>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã phân loại</th>
+            <th>Tên phân loại</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+

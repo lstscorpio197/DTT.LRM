@@ -1,3 +1,9 @@
+*.dll
+*.xml
+*.cache
+*.pdb
+*.txt
+*.resources
 .vs/DTT.LRM/config/applicationhost.config
 .vs/DTT.LRM/v16/.suo
 DTT.LRM.Web/App_Data/Logs/Logs.txt

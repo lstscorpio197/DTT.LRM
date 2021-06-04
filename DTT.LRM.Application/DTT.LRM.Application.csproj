@@ -224,6 +224,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookClassifies\BookClassifyAppService.cs" />
+    <Compile Include="BookClassifies\Dto\BookClassifyDto.cs" />
+    <Compile Include="BookClassifies\Dto\CreateOrUpdateBookClassifyDto.cs" />
+    <Compile Include="BookClassifies\IBookClassifyAppService.cs" />
     <Compile Include="LRMApplicationModule.cs" />
     <Compile Include="LRMAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />
