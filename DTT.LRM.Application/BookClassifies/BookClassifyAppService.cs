@@ -27,6 +27,12 @@ namespace DTT.LRM.BookClassifies
             return await _bookClassifyRepository.InsertOrUpdateAndGetIdAsync(obj);
         }
 
+        public async Task DeleteById(int id)
+        {
+            var bookClassify = await _bookClassifyRepository.GetAsync(id);
+            await _bookClassifyRepository.DeleteAsync(bookClassify);
+        }
+
         public async Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestDto input)
         {
             var listBookClassifies = _bookClassifyRepository.GetAll();

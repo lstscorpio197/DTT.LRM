@@ -22,7 +22,7 @@ namespace DTT.LRM.Migrations.SeedData
             AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "mydomain.com mailer");
 
             //Languages
-            AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en");
+            AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "vi");
         }
 
         private void AddSettingIfNotExists(string name, string value, int? tenantId = null)

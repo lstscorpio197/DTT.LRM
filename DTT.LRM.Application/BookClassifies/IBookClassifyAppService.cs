@@ -14,5 +14,6 @@ namespace DTT.LRM.BookClassifies
         Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestDto input);
         Task<int> CreateOrUpdateAsync(CreateOrUpdateBookClassifyDto input);
         Task<BookClassifyDto> GetById(int id);
+        Task DeleteById(int id);
     }
 }
