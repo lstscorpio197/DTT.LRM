@@ -2782,9 +2782,16 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookCategories\BookCategoriesController.cs" />
     <Compile Include="Controllers\BookClassifies\BookClassifiesController.cs" />
+    <Compile Include="Controllers\BookFields\BookFieldsController.cs" />
     <Compile Include="Controllers\Books\BooksController.cs" />
+    <Compile Include="Controllers\Employees\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganizationUnits\OrganizationUnitsController.cs" />
+    <Compile Include="Controllers\Positions\PositionsController.cs" />
+    <Compile Include="Controllers\Publishers\PublishersController.cs" />
+    <Compile Include="Controllers\Readers\ReadersController.cs" />
     <Compile Include="Controllers\Results\ChallengeResult.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
@@ -2941,6 +2948,13 @@
     <Content Include="Views\Books\CreateOrUpdate.cshtml" />
     <Content Include="Views\BookClassifies\Index.cshtml" />
     <Content Include="Views\BookClassifies\CreateOrUpdate.cshtml" />
+    <Content Include="Views\BookCategories\Index.cshtml" />
+    <Content Include="Views\BookFields\Index.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\OrganizationUnits\Index.cshtml" />
+    <Content Include="Views\Positions\Index.cshtml" />
+    <Content Include="Views\Publishers\Index.cshtml" />
+    <Content Include="Views\Readers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

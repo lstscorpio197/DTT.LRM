@@ -24,12 +24,31 @@ namespace DTT.LRM.Web
                         icon: "home",
                         requiresAuthentication: true
                     )
-                ).AddItem(
+                )
+                .AddItem(
                     new MenuItemDefinition(
-                        PageNames.Home,
+                        PageNames.Books,
                         L("Quản lý sách"),
                         url: "Books",
                         icon: "book",
+                        requiresAuthentication: true
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.Readers,
+                        L("Quản lý độc giả"),
+                        url: "Readers",
+                        icon: "people",
+                        requiresAuthentication: true
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.Employees,
+                        L("Quản lý nhân viên"),
+                        url: "Employees",
+                        icon: "people",
                         requiresAuthentication: true
                     )
                 )
