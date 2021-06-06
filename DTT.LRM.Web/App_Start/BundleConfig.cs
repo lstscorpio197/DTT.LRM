@@ -44,7 +44,9 @@ namespace DTT.LRM.Web
                         "~/Abp/Framework/scripts/libs/abp.spin.js",
                         "~/Abp/Framework/scripts/libs/abp.sweet-alert.js",
                         "~/js/admin.js",
-                        "~/js/main.js"
+                        "~/js/main.js",
+                        "~/js/bootstrap.bundle.min.js"
+                        
                     )
             );
 
@@ -53,6 +55,7 @@ namespace DTT.LRM.Web
             //~/Bundles/vendor/css
             bundles.Add(
                 new StyleBundle("~/Bundles/vendor/css")
+                //.Include("~/css/bootstrap/bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/fonts/roboto/roboto.css", new CssRewriteUrlTransform())
                 .Include("~/fonts/material-icons/materialicons.css", new CssRewriteUrlTransform())
                 .Include("~/lib/bootstrap/dist/css/bootstrap.css", new CssRewriteUrlTransform())
@@ -64,6 +67,7 @@ namespace DTT.LRM.Web
                 .Include("~/lib/animate.css/animate.css", new CssRewriteUrlTransform())
                 .Include("~/css/materialize.css", new CssRewriteUrlTransform())
                 .Include("~/css/style.css", new CssRewriteUrlTransform())
+                .Include("~/css/jquery.dataTables.min.css", new CssRewriteUrlTransform())
                 .Include("~/css/themes/all-themes.css", new CssRewriteUrlTransform())
                 .Include("~/Views/Shared/_Layout.css", new CssRewriteUrlTransform())
             );
@@ -96,7 +100,8 @@ namespace DTT.LRM.Web
                         "~/js/admin.js",
                         "~/js/main.js",
                         "~/Scripts/jquery.signalR-2.4.1.js",
-                        "~/Views/Shared/_Layout.js"
+                        "~/Views/Shared/_Layout.js",
+                        "~/js/jquery.dataTables.min.js"
                     )
                 );
 
@@ -123,6 +128,7 @@ namespace DTT.LRM.Web
             //~/Bundles/css
             bundles.Add(
                 new StyleBundle("~/Bundles/css")
+                    .Include("~/css/main.css")
                     .Include("~/css/main.css")
                 );
         }
