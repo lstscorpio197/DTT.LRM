@@ -540,6 +540,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="css\bootstrap\bootstrap.min.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\style.css" />
     <Content Include="css\style.min.css">
@@ -592,7 +593,9 @@
     <Content Include="images\user-img-background.jpg" />
     <Content Include="images\user.png" />
     <Content Include="js\admin.js" />
+    <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\helpers.js" />
+    <Content Include="js\jquery.dataTables.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\script.js" />
     <Content Include="lib\animate.css\animate.css" />
@@ -2757,6 +2760,9 @@
     <Content Include="Views\Account\_TenantChangeModal.js" />
     <Content Include="Views\BookClassifies\CreateOrUpdate.js" />
     <Content Include="Views\BookClassifies\Index.js" />
+    <Content Include="Views\BookClassifies\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="Views\Home\Index.js" />
     <Content Include="Views\Roles\Index.js" />
     <Content Include="Views\Roles\_EditRoleModal.js" />
