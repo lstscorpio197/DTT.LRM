@@ -25,7 +25,7 @@ namespace DTT.LRM.Migrations.SeedData
                 new ApplicationLanguage(null, "ja", "日本語", "famfamfam-flags jp",true),
                 new ApplicationLanguage(null, "nl-NL", "Nederlands", "famfamfam-flags nl",true),
                 new ApplicationLanguage(null, "lt", "Lietuvos", "famfamfam-flags lt",true),
-                new ApplicationLanguage(null, "vi", "Tiếng Việt", "famfamfam-flags vi",false)
+                new ApplicationLanguage(null, "vi", "Tiếng Việt", "famfamfam-flags vn",false)
             };
         }
 

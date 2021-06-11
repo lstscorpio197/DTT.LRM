@@ -15,5 +15,6 @@ namespace DTT.LRM.BookFields
         Task<int> CreateOrUpdateAsync(CreateOrUpdateBookFieldDto input);
         Task<BookFieldDto> GetById(int id);
         Task DeleteById(int id);
+        Task<List<BookFieldDto>> GetAllForSelect();
     }
 }

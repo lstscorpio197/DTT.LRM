@@ -54,5 +54,22 @@
     <text name="Yes" value="Yes" />
     <text name="No" value="No" />
     <text name="Optional" value="Optional" />
+
+    <!--Menu-->
+    <text name="Books" value="Danh sách sách" />
+    <text name="BookClassifies" value="Phân loại sách" />
+    <text name="BookFields" value="Lĩnh vực sách" />
+    <text name="BookCategories" value="Loại sách" />
+    <text name="Publishers" value="Nhà xuất bản" />
+    <text name="OrganizationUnits" value="Phòng ban" />
+    <text name="Positions" value="Chức vụ" />
+    <text name="Readers" value="Độc giả" />
+    <text name="Employees" value="Nhân viên" />
+    <text name="Systems" value="Hệ thống" />
+    <text name="Categories" value="Danh mục" />
+    <text name="Administration" value="Quản trị" />
+    <text name="Decentralization" value="Phân quyền" />
+    <text name="UserList" value="Danh sách người dùng" />
+    
   </texts>
 </localizationDictionary>

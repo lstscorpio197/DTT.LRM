@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using DTT.LRM.BookClassifies;
 using DTT.LRM.BookFields;
 using DTT.LRM.Positions;
 using System;
@@ -17,9 +18,9 @@ namespace DTT.LRM.PositionQuotas
         public Position Position { get; set; }
         public int PositionId { get; set; }
 
-        [ForeignKey("BookFieldId")]
-        public BookField BookField { get; set; }
-        public int BookFieldId { get; set; }
+        [ForeignKey("BookClassifyId")]
+        public BookClassify BookClassify { get; set; }
+        public int BookClassifyId { get; set; }
         public int Amount { get; set; }
     }
 }

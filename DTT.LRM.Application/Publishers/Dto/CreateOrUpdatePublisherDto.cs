@@ -11,7 +11,7 @@ namespace DTT.LRM.Publishers.Dto
     [AutoMapTo(typeof(Publisher))]
     public class CreateOrUpdatePublisherDto : AuditedEntityDto
     {
-        public int Code { get; set; }
+        public string Code { get; set; }
 
         public string Name { get; set; }
 

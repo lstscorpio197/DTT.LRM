@@ -13,10 +13,21 @@ namespace DTT.LRM.BookFields.Dto
     public class BookFieldDto : AuditedEntityDto
     {
         public int Code { get; set; }
+        public string CodeText => Code.ToString("D3");
         public string Name { get; set; }
         public BookClassify BookClassify { get; set; }
         public int BookClassifyId { get; set; }
 
         public bool Status { get; set; }
+        public string StatusText
+        {
+            get
+            {
+                if (Status)
+                    return "Đang sử dụng";
+                else
+                    return "Không sử dụng";
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Abp.Authorization;
 using DTT.LRM.BookClassifies;
 using DTT.LRM.BookClassifies.Dto;
+using DTT.LRM.Share;
 using DTT.LRM.Web.Models.BookClassifies;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,21 @@ namespace DTT.LRM.Web.Controllers.BookClassifies
         public async Task<ActionResult> Index()
         {
             return View();
+        }
+        public async Task<JsonResult> GetDataTable(string keyword)
+        {
+            int start = Convert.ToInt32(Request["start"]);
+            var filter = new PagedResultRequestExtendDto
+            {
+                SkipCount = start,
+                Keyword = keyword
+            };
+            var data = await _bookClassifyAppService.GetAll(filter);
+            return Json(new
+            {
+                data = data,
+                startIndex = start + 1
+            }, JsonRequestBehavior.AllowGet) ;
         }
 
         public async Task<ActionResult> CreateOrUpdate(int? bookClassifyId)

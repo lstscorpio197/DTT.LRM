@@ -13,7 +13,8 @@ namespace DTT.LRM.Publishers
     public class Publisher : FullAuditedEntity
     {
         [Required]
-        public int Code { get; set; }
+        [MaxLength(20)]
+        public string Code { get; set; }
 
         [Required]
         [MaxLength(100)]

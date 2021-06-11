@@ -16,5 +16,15 @@ namespace DTT.LRM.Positions.Dto
         public string Name { get; set; }
 
         public bool Status { get; set; }
+        public string StatusText
+        {
+            get
+            {
+                if (Status)
+                    return "Đang sử dụng";
+                else
+                    return "Không sử dụng";
+            }
+        }
     }
 }

@@ -21,7 +21,6 @@ namespace DTT.LRM.BookFields
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
         [ForeignKey("BookClassifyId")]
         public BookClassify BookClassify { get; set; }
         public int BookClassifyId { get; set; }

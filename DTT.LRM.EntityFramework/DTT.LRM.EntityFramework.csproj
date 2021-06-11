@@ -297,6 +297,14 @@
     <Compile Include="Migrations\202106031502231_Add_SystemData.designer.cs">
       <DependentUpon>202106031502231_Add_SystemData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106101714501_Change_PositionQuota.cs" />
+    <Compile Include="Migrations\202106101714501_Change_PositionQuota.designer.cs">
+      <DependentUpon>202106101714501_Change_PositionQuota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106111511034_Edit_PublisherEntity.cs" />
+    <Compile Include="Migrations\202106111511034_Edit_PublisherEntity.designer.cs">
+      <DependentUpon>202106111511034_Edit_PublisherEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
@@ -366,6 +374,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106031502231_Add_SystemData.resx">
       <DependentUpon>202106031502231_Add_SystemData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106101714501_Change_PositionQuota.resx">
+      <DependentUpon>202106101714501_Change_PositionQuota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106111511034_Edit_PublisherEntity.resx">
+      <DependentUpon>202106111511034_Edit_PublisherEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -35,8 +35,24 @@
             return false;
         }
         let bookClassify = _$form.serializeFormToObject();
-        _bookClassifyService.createOrUpdate(bookClassify).done(function () {
-            alert("Ok");
+        _bookClassifyService.createOrUpdate(bookClassify).done(function (res) {
+            if (res == 0) {
+                abp.notify.warn("Mã phân loại đã tồn tại");
+            }
+            else {
+                if (bookClassify.Id > 0) {
+                    abp.notify.success("Lưu thành công");
+                    setTimeout(function () {
+                        window.location = abp.toAbsAppPath('BookClassifies/Index');
+                    }, 500);
+                }
+                else {
+                    abp.notify.success("Thêm mới thành công");
+                    setTimeout(function () {
+                        window.location = abp.toAbsAppPath('BookClassifies/Index');
+                    }, 500);
+                }
+            }
         })
     })
 

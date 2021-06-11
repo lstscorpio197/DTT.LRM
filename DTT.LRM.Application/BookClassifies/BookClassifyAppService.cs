@@ -3,6 +3,7 @@ using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using DTT.LRM.BookClassifies.Dto;
+using DTT.LRM.Share;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -33,15 +34,27 @@ namespace DTT.LRM.BookClassifies
             await _bookClassifyRepository.DeleteAsync(bookClassify);
         }
 
-        public async Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listBookClassifies = _bookClassifyRepository.GetAll();
-            listBookClassifies = listBookClassifies.OrderBy("id DESC").PageBy(input);
+            if (!string.IsNullOrEmpty(input.Keyword))
+            {
+                var keyword = input.Keyword.ToLower();
+                listBookClassifies = listBookClassifies.Where(x => x.Code.ToString().Contains(keyword)
+                                                                || x.Name.Contains(keyword));
+            }
+            var item = listBookClassifies.OrderBy("id ASC").PageBy(input).ToList();
             return new PagedResultDto<BookClassifyDto>
             {
                 TotalCount = listBookClassifies.Count(),
-                Items = listBookClassifies.MapTo<List<BookClassifyDto>>()
+                Items = item.MapTo<List<BookClassifyDto>>()
             };
+        }
+
+        public async Task<List<BookClassifyDto>> GetAllForSelect()
+        {
+            var listBookClassifies = await _bookClassifyRepository.GetAllListAsync(x => x.Status == true);
+            return ObjectMapper.Map<List<BookClassifyDto>>(listBookClassifies);
         }
 
         public async Task<BookClassifyDto> GetById(int id)

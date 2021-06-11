@@ -1,0 +1,192 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model DTT.LRM.Web.Models.BookCategories.CreateOrUpdateModel
+@{
+    ViewBag.ActiveMenu = PageNames.BookCategories; //The menu item will be active for this page.
+}
+@section scripts
+{
+    <script src="~/Views/BookCategories/CreateOrUpdate.js"></script>
+}
+<div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
+    <h4>
+        <a href="http://localhost:61814/BookCategories/" class="mr-2">
+            <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 288.312 288.312" style="enable-background:new 0 0 288.312 288.312;" xml:space="preserve">
+            <g>
+            <path id="Subdirectory_Arrow_Up_Left" d="M127.353,3.555c-4.704-4.74-12.319-4.74-17.011,0L15.314,99.653
+		                    c-4.74,4.788-4.547,12.884,0.313,17.48l94.715,95.785c4.704,4.74,12.319,4.74,17.011,0c4.704-4.74,4.704-12.427,0-17.167
+		                    l-74.444-75.274h199.474v155.804c0,6.641,5.39,12.03,12.03,12.03c6.641,0,12.03-5.39,12.03-12.03V108.231
+		                    c0-6.641-5.39-12.03-12.03-12.03H52.704l74.648-75.49C132.056,15.982,132.056,8.295,127.353,3.555z" />
+                    </g>
+                </svg>
+        </a>
+        Danh mục loại sách
+    </h4>
+    <button class="btn btn-primary d-flex align-items-center submit" type="button">
+        <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+        Lưu
+    </button>
+</div>
+<form name="BookCategoryForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    @*<ul class="nav nav-tabs tab-nav-right mb-3" role="tablist">
+            <li role="presentation" class="nav-item">
+                <a href="#edit-user-details" data-toggle="tab">User Details</a>
+            </li>
+            <li role="presentation">
+                <a href="#edit-user-roles" data-toggle="tab">User Roles</a>
+            </li>
+        </ul>*@
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" value="@Model.BookCategory.Id" />
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="code" type="text" name="Code" value="@(Model.BookCategory.Code > 0 ? Model.BookCategory.Code.ToString("D3"):"")" class="validate form-control">
+                            <label for="code" class="form-label">Mã loại sách</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="name" type="text" name="Name" value="@Model.BookCategory.Name" class="validate form-control">
+                            <label for="name" class="form-label">Tên loại sách</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <select class="w-100" name="BookFieldId">
+                                <option value="">-- Chọn lĩnh vực sách --</option>
+                                @foreach (var item in Model.ListBookField)
+                                {
+                                    <option value="@item.Id" @(item.Id == Model.BookCategory.BookFieldId ? "selected" : "")>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Girl
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Boy
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="">
+                            <input id="status" type="checkbox" name="Status" value="true" @((Model.BookCategory.Status || Model.BookCategory.Id == 0) ? "checked" : "") class="form-control" />
+                            <label for="status" class="form-label">Đang sử dụng</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>twitter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>twitter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>twitter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>*@
+    </div>
+</form>

@@ -2758,12 +2758,20 @@
     </Content>
     <Content Include="Views\Account\_TenantChange.js" />
     <Content Include="Views\Account\_TenantChangeModal.js" />
+    <Content Include="Views\BookCategories\CreateOrUpdate.js" />
+    <Content Include="Views\BookCategories\Index.js" />
     <Content Include="Views\BookClassifies\CreateOrUpdate.js" />
     <Content Include="Views\BookClassifies\Index.js" />
     <Content Include="Views\BookClassifies\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
+    <Content Include="Views\BookFields\CreateOrUpdate.js" />
+    <Content Include="Views\BookFields\Index.js" />
     <Content Include="Views\Home\Index.js" />
+    <Content Include="Views\Positions\CreateOrUpdate.js" />
+    <Content Include="Views\Positions\Index.js" />
+    <Content Include="Views\Publishers\CreateOrUpdate.js" />
+    <Content Include="Views\Publishers\Index.js" />
     <Content Include="Views\Roles\Index.js" />
     <Content Include="Views\Roles\_EditRoleModal.js" />
     <Content Include="Views\Shared\_Layout.css" />
@@ -2805,8 +2813,10 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\Account\TenantChangeModalViewModel.cs" />
     <Compile Include="Models\Account\TenantChangeViewModel.cs" />
+    <Compile Include="Models\BookCategories\CreateOrUpdateModel.cs" />
     <Compile Include="Models\BookClassifies\BookClassifyIndexModel.cs" />
     <Compile Include="Models\BookClassifies\CreateOrUpdateModel.cs" />
+    <Compile Include="Models\BookFields\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Common\Modals\ModalHeaderViewModel.cs" />
     <Compile Include="Models\Layout\RightSideBarViewModel.cs" />
     <Compile Include="Models\Account\LoginFormViewModel.cs" />
@@ -2822,6 +2832,8 @@
     </Compile>
     <Compile Include="Models\Layout\SideBarNavViewModel.cs" />
     <Compile Include="Models\Layout\SideBarUserAreaViewModel.cs" />
+    <Compile Include="Models\Positions\CreateOrUpdateModel.cs" />
+    <Compile Include="Models\Publishers\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Roles\EditRoleModalViewModel.cs" />
     <Compile Include="Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Models\Users\EditUserModalViewModel.cs" />
@@ -2961,6 +2973,10 @@
     <Content Include="Views\Positions\Index.cshtml" />
     <Content Include="Views\Publishers\Index.cshtml" />
     <Content Include="Views\Readers\Index.cshtml" />
+    <Content Include="Views\BookFields\CreateOrUpdate.cshtml" />
+    <Content Include="Views\BookCategories\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Positions\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Publishers\CreateOrUpdate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

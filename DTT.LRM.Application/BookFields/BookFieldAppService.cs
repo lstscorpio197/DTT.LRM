@@ -21,11 +21,18 @@ namespace DTT.LRM.BookFields
         }
         public async Task<int> CreateOrUpdateAsync(CreateOrUpdateBookFieldDto input)
         {
-            var check = await _bookFieldRepository.FirstOrDefaultAsync(x => x.Code == input.Code && x.Id != input.Id);
-            if (check != null)
-                return 0;
-            var obj = ObjectMapper.Map<BookField>(input);
-            return await _bookFieldRepository.InsertOrUpdateAndGetIdAsync(obj);
+            try
+            {
+                var check = await _bookFieldRepository.FirstOrDefaultAsync(x => x.Code == input.Code && x.Id != input.Id);
+                if (check != null)
+                    return 0;
+                var obj = ObjectMapper.Map<BookField>(input);
+                return await _bookFieldRepository.InsertOrUpdateAndGetIdAsync(obj);
+            }
+            catch(Exception ex)
+            {
+                return -1;
+            }
         }
 
         public async Task DeleteById(int id)
@@ -43,6 +50,12 @@ namespace DTT.LRM.BookFields
                 TotalCount = listBookFields.Count(),
                 Items = listBookFields.MapTo<List<BookFieldDto>>()
             };
+        }
+
+        public async Task<List<BookFieldDto>> GetAllForSelect()
+        {
+            var listBookFields = await _bookFieldRepository.GetAllListAsync(x=>x.Status == true);
+            return ObjectMapper.Map<List<BookFieldDto>>(listBookFields);
         }
 
         public async Task<BookFieldDto> GetById(int id)

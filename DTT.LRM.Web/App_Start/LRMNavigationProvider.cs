@@ -28,7 +28,7 @@ namespace DTT.LRM.Web
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Books,
-                        L("Quản lý sách"),
+                        L("Books"),
                         url: "Books",
                         icon: "book",
                         requiresAuthentication: true
@@ -37,7 +37,7 @@ namespace DTT.LRM.Web
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Readers,
-                        L("Quản lý độc giả"),
+                        L("Readers"),
                         url: "Readers",
                         icon: "people",
                         requiresAuthentication: true
@@ -46,7 +46,7 @@ namespace DTT.LRM.Web
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Employees,
-                        L("Quản lý nhân viên"),
+                        L("Employees"),
                         url: "Employees",
                         icon: "people",
                         requiresAuthentication: true
@@ -87,59 +87,66 @@ namespace DTT.LRM.Web
                 .AddItem( //Menu items below is just for demonstration!
                     new MenuItemDefinition(
                         "Systems",
-                        L("Hệ thống"),
+                        L("Systems"),
                         icon: "menu"
                     )
                     .AddItem(
                         new MenuItemDefinition(
-                            "Category",
-                            new FixedLocalizableString("Danh mục")
+                            "Categories",
+                            L("Categories")
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "BookClassifies",
-                                new FixedLocalizableString("Phân loại sách"),
+                                L("BookClassifies"),
                                 url: "BookClassifies"
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "BookFields",
-                                new FixedLocalizableString("Lĩnh vực sách"),
+                                L("BookFields"),
                                 url: "BookFields"
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "BookCategories",
-                                new FixedLocalizableString("Loại sách"),
+                                L("BookCategories"),
                                 url: "BookCategories"
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "Positions",
-                                new FixedLocalizableString("Chức vụ"),
+                                L("Positions"),
                                 url: "Positions"
+                            )
+                        )
+                        .AddItem(
+                            new MenuItemDefinition(
+                                "Publishers",
+                                L("Publishers"),
+                                url: "Publishers"
                             )
                         )
                     )
                     .AddItem(
                         new MenuItemDefinition(
                             "Administration",
-                            new FixedLocalizableString("Quản trị")
+                            L("Administration")
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "Decentralization",
-                                new FixedLocalizableString("Phân quyền"),
+                                L("Decentralization"),
                                 url: "Decentralization"
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "UserList",
-                                new FixedLocalizableString("Danh sách người dùng"),
+                                L("UserList"),
                                 url: "UserList"
                             )
                         )

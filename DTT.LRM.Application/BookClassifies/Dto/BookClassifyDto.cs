@@ -13,8 +13,18 @@ namespace DTT.LRM.BookClassifies.Dto
     public class BookClassifyDto : AuditedEntityDto
     {
         public int Code { get; set; }
+        public string CodeText => Code.ToString("D3");
         public string Name { get; set; }
         public bool Status { get; set; }
-        public virtual ICollection<BookField> Children { get; set; }
+        public string StatusText
+        {
+            get
+            {
+                if (Status)
+                    return "Đang sử dụng";
+                else
+                    return "Không sử dụng";
+            }
+        }
     }
 }
