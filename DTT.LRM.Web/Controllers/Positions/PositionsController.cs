@@ -1,5 +1,6 @@
 ﻿using Abp.Authorization;
 using DTT.LRM.BookClassifies;
+using DTT.LRM.PositionQuotas.Dto;
 using DTT.LRM.Positions;
 using DTT.LRM.Positions.Dto;
 using DTT.LRM.Share;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace DTT.LRM.Web.Controllers.Positions
 {
@@ -44,6 +46,7 @@ namespace DTT.LRM.Web.Controllers.Positions
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public async Task<ActionResult> CreateOrUpdate(int? positionId)
         {
             var model = new CreateOrUpdateModel();
@@ -58,6 +61,19 @@ namespace DTT.LRM.Web.Controllers.Positions
                 model.ListBookClassify = await _bookClassifyAppService.GetAllForSelect();
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> CreateOrUpdate()
+        {
+            var generalInfo = System.Web.HttpContext.Current.Request.Form["generalInfo"];
+            if (generalInfo != null)
+            {
+                var position = new JavaScriptSerializer().Deserialize<CreateOrUpdatePositionDto>(generalInfo);
+                var listQuotasResult = System.Web.HttpContext.Current.Request.Form["listQuotas"];
+                var listQuotas = new JavaScriptSerializer().Deserialize<List<CreateOrUpdatePositionQuotaDto>>(listQuotasResult);
+            }
+            return Json(1);
         }
     }
 }

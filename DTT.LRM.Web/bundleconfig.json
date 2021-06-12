@@ -4,11 +4,5 @@
     "inputFiles": [
       "css/style.css"
     ]
-  },
-  {
-    "outputFileName": "Views/BookClassifies/Index.min.js",
-    "inputFiles": [
-      "Views/BookClassifies/Index.js"
-    ]
   }
 ]

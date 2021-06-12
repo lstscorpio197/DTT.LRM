@@ -28,15 +28,15 @@
         Lưu
     </button>
 </div>
-<form name="BookClassifyForm" role="form" novalidate class="form-validation" id="form-wrapper">
+<form name="PositionForm" role="form" novalidate class="form-validation" id="form-wrapper">
     <ul class="nav nav-tabs tab-nav-right mb-3" role="tablist">
-            <li role="presentation" class="nav-item">
-                <a href="#general-info" data-toggle="tab">Thông tin chung</a>
-            </li>
-            <li role="presentation">
-                <a href="#quota-info" data-toggle="tab">Định mức</a>
-            </li>
-        </ul>
+        <li role="presentation" class="nav-item">
+            <a href="#general-info" data-toggle="tab">Thông tin chung</a>
+        </li>
+        <li role="presentation">
+            <a href="#quota-info" data-toggle="tab">Định mức</a>
+        </li>
+    </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane animated fadeIn active" id="general-info">
             <input type="hidden" name="Id" value="@Model.Position.Id" />
@@ -100,38 +100,41 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane animated fadeIn" id="quota-info">
-                <table class="table" id="myTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <input id="checkbox" type="checkbox" name="Checkbox" value="" class="form-control" />
-                                <label for="checkbox" class="btn-checkbox"></label>
-                            </th>
-                            <th scope="col">STT</th>
-                            <th scope="col">Phân loại sách</th>
-                            <th scope="col">Số lượng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <input id="checkbox" type="checkbox" name="Checkbox" value="" class="form-control" />
-                                <label for="checkbox" class="btn-checkbox"></label>
-                            </th>
-                            <td>1</td>
-                            <td>
-                                <select class="w-100" name="BookFieldId">
+            <table class="table" id="tblPositionQuota">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input id="checkbox-all" type="checkbox" name="Checkbox" value="" class="form-control" />
+                            <label for="checkbox-all" class="btn-checkbox"></label>
+                        </th>
+                        <th scope="col">STT</th>
+                        <th scope="col">Phân loại sách</th>
+                        <th scope="col">Số lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <input id="checkbox" type="checkbox" name="Checkbox" value="" class="form-control" />
+                            <label for="checkbox" class="btn-checkbox"></label>
+                        </th>
+                        <td class="stt">1</td>
+                        <td>
+                            <select class="selectpicker show-tick form-control" data-width="100%" width="auto" data-live-search="true" name="BookClassifyId">
                                 <option value="">-- Chọn phân loại sách --</option>
-                                
+                                @foreach (var item in Model.ListBookClassify)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
                             </select>
-                            </td>
-                            <td>
-                                <input id="amount" type="number" name="Amount" value="" class="form-control" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </td>
+                        <td>
+                            <input id="amount" type="number" name="Amount" value="0" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <a class="add-row cursor-pointer">Thêm định mức</a>
-            </div>
+        </div>
     </div>
 </form>

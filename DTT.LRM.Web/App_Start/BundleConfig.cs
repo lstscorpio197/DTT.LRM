@@ -68,6 +68,8 @@ namespace DTT.LRM.Web
                 .Include("~/css/materialize.css", new CssRewriteUrlTransform())
                 .Include("~/css/style.css", new CssRewriteUrlTransform())
                 .Include("~/css/jquery.dataTables.min.css", new CssRewriteUrlTransform())
+                .Include("~/css/select2.min.css", new CssRewriteUrlTransform())
+                .Include("~/css/bootstrap-select.min.css", new CssRewriteUrlTransform())
                 .Include("~/css/themes/all-themes.css", new CssRewriteUrlTransform())
                 .Include("~/Views/Shared/_Layout.css", new CssRewriteUrlTransform())
             );
@@ -101,7 +103,9 @@ namespace DTT.LRM.Web
                         "~/js/main.js",
                         "~/Scripts/jquery.signalR-2.4.1.js",
                         "~/Views/Shared/_Layout.js",
-                        "~/js/jquery.dataTables.min.js"
+                        "~/js/jquery.dataTables.min.js",
+                        "~/js/select2.min.js",
+                        "~/js/bootstrap-select.min.js"
                     )
                 );
 
