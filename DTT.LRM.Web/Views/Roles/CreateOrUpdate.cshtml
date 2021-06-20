@@ -1,0 +1,207 @@
+﻿@using DTT.LRM.Web.Models.Common.Modals
+@model DTT.LRM.Web.Models.Roles.EditRoleModalViewModel
+@{ ViewBag.ActiveMenu = PageNames.Roles; }
+
+@section scripts{
+    <script src="~/Views/Roles/CreateOrUpdate.js"></script>
+}
+
+<div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
+    <h4>
+        <a href="http://localhost:61814/Roles/" class="mr-2">
+            <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 288.312 288.312" style="enable-background:new 0 0 288.312 288.312;" xml:space="preserve">
+            <g>
+            <path id="Subdirectory_Arrow_Up_Left" d="M127.353,3.555c-4.704-4.74-12.319-4.74-17.011,0L15.314,99.653
+		                    c-4.74,4.788-4.547,12.884,0.313,17.48l94.715,95.785c4.704,4.74,12.319,4.74,17.011,0c4.704-4.74,4.704-12.427,0-17.167
+		                    l-74.444-75.274h199.474v155.804c0,6.641,5.39,12.03,12.03,12.03c6.641,0,12.03-5.39,12.03-12.03V108.231
+		                    c0-6.641-5.39-12.03-12.03-12.03H52.704l74.648-75.49C132.056,15.982,132.056,8.295,127.353,3.555z" />
+                    </g>
+                </svg>
+        </a>
+        Danh mục nhóm quyền
+    </h4>
+    <button class="btn btn-primary d-flex align-items-center submit" type="button">
+        <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+        Lưu
+    </button>
+</div>
+
+<form name="RoleForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" value="@Model.Role.Id" />
+            <input type="hidden" name="IsStatic" value="@(Model.Role.IsStatic.ToString())" />
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="rolename" @(Model.Role.IsStatic ? "disabled" : "") type="text" name="Name" value="@Model.Role.Name" required maxlength="32" minlength="2" class="validate form-control">
+                            <label for="rolename" class="form-label">Mã nhóm quyền</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="displayname" type="text" name="DisplayName" value="@Model.Role.DisplayName" required maxlength="32" minlength="2" class="validate form-control">
+                            <label for="displayname" class="form-label">Tên nhóm quyền</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <textarea id="role-description" name="Description" class="validate form-control">@Model.Role.Description</textarea>
+                            <label for="role-description" class="form-label">Role Description</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="checkbox" name="IsDefault" value="@Model.Role.IsDefault" title="@Model.Role.IsDefault" class="filled-in" id="isdefault" @(Model.Role.IsDefault.HasValue && Model.Role.IsDefault.Value ? "checked" : "") />
+                            <label for="isdefault">Nhóm quyền mặc định</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <h4>Danh sách quyền</h4>
+                    <div class="col-sm-12">
+                        <div class="col-sm-12">
+                            <h5>Chung</h5>
+                            <div class="col-sm-12">
+                                <h6>Danh sách sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Books")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Độc giả</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Readers")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Nhân viên</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Employees")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <h5>Danh mục hệ thống</h5>
+
+                            <div class="col-sm-12">
+                                <h6>Phân loại sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("BookClassifies")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Lĩnh vực sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("BookFields")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Loại sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("BookCategories")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+                            <div class="col-sm-12">
+                                <h6>Nhà xuất bản</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Publishers")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Chức vụ</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Positions")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Phòng ban</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("OrganizationUnits")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <h5>Quản trị / Hệ thống</h5>
+                            <div class="col-sm-12">
+                                <h6>Nhóm quyền</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Roles")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Danh sách người dùng</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("UserList")))
+                                {
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                    </div>}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

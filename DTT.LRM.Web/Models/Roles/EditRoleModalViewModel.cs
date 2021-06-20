@@ -12,6 +12,8 @@ namespace DTT.LRM.Web.Models.Roles
 
         public bool HasPermission(PermissionDto permission)
         {
+            if (Role.Id == 0)
+                return false;
             return Permissions != null && Role.GrantedPermissions.Any(p => p == permission.Name);
         }
     }

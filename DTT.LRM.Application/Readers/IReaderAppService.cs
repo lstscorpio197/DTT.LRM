@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using DTT.LRM.Readers.Dto;
+using DTT.LRM.Share;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DTT.LRM.Readers
 {
     public interface IReaderAppService : IApplicationService
     {
-        Task<PagedResultDto<ReaderDto>> GetAll(PagedResultRequestDto input);
+        Task<PagedResultExtendDto<ReaderDto>> GetAll(PagedResultRequestExtendDto input);
         Task<int> CreateOrUpdateAsync(CreateOrUpdateReaderDto input);
         Task<ReaderDto> GetById(int id);
         Task DeleteById(int id);

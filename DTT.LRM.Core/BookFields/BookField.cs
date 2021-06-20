@@ -26,6 +26,5 @@ namespace DTT.LRM.BookFields
         public int BookClassifyId { get; set; }
 
         public bool Status { get; set; }
-        public virtual ICollection<BookCategory> Children { get; set; }
     }
 }

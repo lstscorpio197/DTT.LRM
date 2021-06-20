@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.Publishers
 {
@@ -34,15 +35,18 @@ namespace DTT.LRM.Publishers
             await _publisherAppService.DeleteAsync(publisher);
         }
 
-        public async Task<PagedResultDto<PublisherDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultExtendDto<PublisherDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listPublishers = _publisherAppService.GetAll();
-            listPublishers = listPublishers.OrderBy("id DESC").PageBy(input);
-            return new PagedResultDto<PublisherDto>
-            {
-                TotalCount = listPublishers.Count(),
-                Items = listPublishers.MapTo<List<PublisherDto>>()
-            };
+            var items = listPublishers.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<PublisherDto>>(items);
+            return new PagedResultExtendDto<PublisherDto>(totalCount: listPublishers.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<List<PublisherDto>> GetAllForSelect()
+        {
+            var listPublishers = await _publisherAppService.GetAllListAsync(x => x.Status == true);
+            return ObjectMapper.Map<List<PublisherDto>>(listPublishers);
         }
 
         public async Task<PublisherDto> GetById(int id)

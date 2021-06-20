@@ -11,7 +11,15 @@ namespace DTT.LRM.Share
     {
         public PagedResultExtendDto()
         {
+
         }
+        public PagedResultExtendDto(int totalCount, IReadOnlyList<T> items, List<CountStatus> countStatus = null)
+        {
+            TotalCount = totalCount;
+            Items = items;
+            CountStatus = countStatus;
+        }
+        public List<CountStatus> CountStatus { get; set; }
 
     }
 }

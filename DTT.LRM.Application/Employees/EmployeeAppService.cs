@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Linq.Extensions;
 using System.Linq.Dynamic.Core;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.Employees
 {
@@ -34,15 +35,12 @@ namespace DTT.LRM.Employees
             await _employeeRepository.DeleteAsync(employee);
         }
 
-        public async Task<PagedResultDto<EmployeeDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultExtendDto<EmployeeDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listEmployees = _employeeRepository.GetAll();
-            listEmployees = listEmployees.OrderBy("id DESC").PageBy(input);
-            return new PagedResultDto<EmployeeDto>
-            {
-                TotalCount = listEmployees.Count(),
-                Items = listEmployees.MapTo<List<EmployeeDto>>()
-            };
+            var items = listEmployees.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<EmployeeDto>>(items);
+            return new PagedResultExtendDto<EmployeeDto>(totalCount: listEmployees.Count(), items: listItems, countStatus: null);
         }
 
         public async Task<EmployeeDto> GetById(int id)

@@ -70,6 +70,12 @@
     <text name="Administration" value="Quản trị" />
     <text name="Decentralization" value="Phân quyền" />
     <text name="UserList" value="Danh sách người dùng" />
+    <text name="Roles" value="Nhóm quyền" />
     
+    <!--Permisstion-->
+    <text name="View" value="Xem" />
+    <text name="Add" value="Thêm" />
+    <text name="Edit" value="Sửa" />
+    <text name="Delete" value="Xóa" />
   </texts>
 </localizationDictionary>

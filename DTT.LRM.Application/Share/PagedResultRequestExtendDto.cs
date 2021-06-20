@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace DTT.LRM.Share
 {
-    public class PagedResultRequestExtendDto : PagedResultRequestDto
+    public class PagedResultRequestExtendDto : PagedAndSortedResultRequestDto
     {
         public string Keyword { get; set; }
+        public int Start { get; set; }
+        public int Length { get; set; }
     }
 }

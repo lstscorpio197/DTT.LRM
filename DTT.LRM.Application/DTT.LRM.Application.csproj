@@ -227,6 +227,7 @@
     <Compile Include="BookCategories\BookCategoryAppService.cs" />
     <Compile Include="BookCategories\Dto\BookCategoryDto.cs" />
     <Compile Include="BookCategories\Dto\CreateOrUpdateBookCategoryDto.cs" />
+    <Compile Include="BookCategories\Dto\IdAndCodeResultDto.cs" />
     <Compile Include="BookCategories\IBookCategoryAppService.cs" />
     <Compile Include="BookClassifies\BookClassifyAppService.cs" />
     <Compile Include="BookClassifies\Dto\BookClassifyDto.cs" />
@@ -236,6 +237,10 @@
     <Compile Include="BookFields\Dto\BookFieldDto.cs" />
     <Compile Include="BookFields\Dto\CreateOrUpdateBookFieldDto.cs" />
     <Compile Include="BookFields\IBookFieldAppService.cs" />
+    <Compile Include="Books\BookAppService.cs" />
+    <Compile Include="Books\Dto\BookDto.cs" />
+    <Compile Include="Books\Dto\CreateOrUpdateBookDto.cs" />
+    <Compile Include="Books\IBookAppService.cs" />
     <Compile Include="Employees\Dto\CreateOrUpdateEmployeeDto.cs" />
     <Compile Include="Employees\Dto\EmployeeDto.cs" />
     <Compile Include="Employees\EmployeeAppService.cs" />
@@ -254,12 +259,14 @@
     <Compile Include="Configuration\IConfigurationAppService.cs" />
     <Compile Include="Configuration\Ui\UiThemeInfo.cs" />
     <Compile Include="Configuration\Ui\UiThemes.cs" />
+    <Compile Include="LRMEnum.cs" />
     <Compile Include="MultiTenancy\Dto\CreateTenantDto.cs" />
     <Compile Include="MultiTenancy\Dto\EditTenantDto.cs" />
     <Compile Include="MultiTenancy\Dto\TenantDto.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
     <Compile Include="OrganizationUnits\Dto\CreateOrUpdateOrganizationUnitDto.cs" />
+    <Compile Include="OrganizationUnits\Dto\OrganizationUnitBasicDto.cs" />
     <Compile Include="OrganizationUnits\Dto\OrganizationUnitDto.cs" />
     <Compile Include="OrganizationUnits\IOrganizationUnitAppService.cs" />
     <Compile Include="OrganizationUnits\OrganizationUnitAppService.cs" />
@@ -284,6 +291,7 @@
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
     <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="Share\CountStatus.cs" />
     <Compile Include="Share\PagedResultExtendDto.cs" />
     <Compile Include="Share\PagedResultRequestExtendDto.cs" />
     <Compile Include="Users\Dto\CreateUserDto.cs" />
@@ -308,7 +316,9 @@
       <Name>DTT.LRM.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Decentralizations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

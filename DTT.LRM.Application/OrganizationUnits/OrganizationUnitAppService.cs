@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.Organizations;
 using DTT.LRM.OrganizationUnits.Dto;
@@ -7,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
+using Abp.Linq.Extensions;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.OrganizationUnits
 {
@@ -39,10 +43,24 @@ namespace DTT.LRM.OrganizationUnits
             return ObjectMapper.Map<ListResultDto<OrganizationUnitDto>>(listOrg);
         }
 
-        public async Task<OrganizationUnitDto> GetById(long id)
+        public async Task<PagedResultExtendDto<OrganizationUnitBasicDto>> GetAllForDatatable(PagedResultRequestExtendDto input)
+        {
+            var listPositions = _organizationUnitRepository.GetAll();
+            var items = listPositions.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<OrganizationUnitBasicDto>>(items);
+            return new PagedResultExtendDto<OrganizationUnitBasicDto>(totalCount: listPositions.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<List<OrganizationUnitBasicDto>> GetAllForSelect()
+        {
+            var listPositions = await _organizationUnitRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<OrganizationUnitBasicDto>>(listPositions);
+        }
+
+        public async Task<OrganizationUnitBasicDto> GetById(long id)
         {
             var org = await _organizationUnitRepository.GetAsync(id);
-            return ObjectMapper.Map<OrganizationUnitDto>(org);
+            return ObjectMapper.Map<OrganizationUnitBasicDto>(org);
         }
     }
 }

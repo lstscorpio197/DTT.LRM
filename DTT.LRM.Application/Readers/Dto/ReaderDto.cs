@@ -29,5 +29,17 @@ namespace DTT.LRM.Readers.Dto
         public string Email { get; set; }
         public string Note { get; set; }
         public bool Status { get; set; }
+        public string StatusText
+        {
+            get
+            {
+                if (Status)
+                    return "Đang sử dụng";
+                else
+                    return "Không sử dụng";
+            }
+        }
+        public string OrganizationUnitName => OrganizationUnit?.DisplayName;
+        public string PositionName => Position?.Name;
     }
 }

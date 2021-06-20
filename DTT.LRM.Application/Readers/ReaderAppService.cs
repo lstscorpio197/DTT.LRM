@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
 using Abp.AutoMapper;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.Readers
 {
@@ -34,15 +35,12 @@ namespace DTT.LRM.Readers
             await _readerRepository.DeleteAsync(reader);
         }
 
-        public async Task<PagedResultDto<ReaderDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultExtendDto<ReaderDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listReaders = _readerRepository.GetAll();
-            listReaders = listReaders.OrderBy("id DESC").PageBy(input);
-            return new PagedResultDto<ReaderDto>
-            {
-                TotalCount = listReaders.Count(),
-                Items = listReaders.MapTo<List<ReaderDto>>()
-            };
+            var items = listReaders.OrderBy("id DESC").PageBy(input);
+            var listItems = ObjectMapper.Map<List<ReaderDto>>(items);
+            return new PagedResultExtendDto<ReaderDto>(totalCount: listReaders.Count(), items: listItems, countStatus: null);
         }
 
         public async Task<ReaderDto> GetById(int id)

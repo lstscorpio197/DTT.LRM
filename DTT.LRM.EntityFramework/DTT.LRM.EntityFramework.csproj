@@ -305,6 +305,14 @@
     <Compile Include="Migrations\202106111511034_Edit_PublisherEntity.designer.cs">
       <DependentUpon>202106111511034_Edit_PublisherEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106151445155_Add_BookEntity.cs" />
+    <Compile Include="Migrations\202106151445155_Add_BookEntity.designer.cs">
+      <DependentUpon>202106151445155_Add_BookEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106171431469_Edit_BookEntity.cs" />
+    <Compile Include="Migrations\202106171431469_Edit_BookEntity.designer.cs">
+      <DependentUpon>202106171431469_Edit_BookEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
@@ -380,6 +388,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106111511034_Edit_PublisherEntity.resx">
       <DependentUpon>202106111511034_Edit_PublisherEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106151445155_Add_BookEntity.resx">
+      <DependentUpon>202106151445155_Add_BookEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106171431469_Edit_BookEntity.resx">
+      <DependentUpon>202106171431469_Edit_BookEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

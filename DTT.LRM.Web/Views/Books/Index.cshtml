@@ -1,7 +1,34 @@
-﻿
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
 @{
     ViewBag.ActiveMenu = PageNames.Books; //The menu item will be active for this page.
 }
-
-<h2>Index</h2>
-
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Books/Index.js")
+}
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Danh sách sách
+        </h4>
+        <div class="btn btn-primary">
+            <a class="link-default" href="http://localhost:61814/Books/CreateOrUpdate">Thêm sách</a>
+        </div>
+    </div>
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã sách</th>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Nhà xuất bản</th>
+                <th scope="col">Năm xuất bản</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

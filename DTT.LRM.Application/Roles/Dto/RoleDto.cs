@@ -2,10 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.Authorization.Roles;
+using Abp.AutoMapper;
 using DTT.LRM.Authorization.Roles;
 
 namespace DTT.LRM.Roles.Dto
 {
+    [AutoMapFrom(typeof(Role))]
     public class RoleDto : EntityDto<int>
     {
         [Required]
@@ -19,6 +21,7 @@ namespace DTT.LRM.Roles.Dto
         [StringLength(Role.MaxDescriptionLength)]
         public string Description { get; set; }
 
+        public bool? IsDefault { get; set; }
         public bool IsStatic { get; set; }
 
         public List<string> GrantedPermissions { get; set; }

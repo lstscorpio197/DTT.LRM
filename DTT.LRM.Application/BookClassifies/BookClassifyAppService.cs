@@ -34,7 +34,7 @@ namespace DTT.LRM.BookClassifies
             await _bookClassifyRepository.DeleteAsync(bookClassify);
         }
 
-        public async Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestExtendDto input)
+        public async Task<PagedResultExtendDto<BookClassifyDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listBookClassifies = _bookClassifyRepository.GetAll();
             if (!string.IsNullOrEmpty(input.Keyword))
@@ -43,12 +43,9 @@ namespace DTT.LRM.BookClassifies
                 listBookClassifies = listBookClassifies.Where(x => x.Code.ToString().Contains(keyword)
                                                                 || x.Name.Contains(keyword));
             }
-            var item = listBookClassifies.OrderBy("id ASC").PageBy(input).ToList();
-            return new PagedResultDto<BookClassifyDto>
-            {
-                TotalCount = listBookClassifies.Count(),
-                Items = item.MapTo<List<BookClassifyDto>>()
-            };
+            var items = listBookClassifies.OrderBy("id ASC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<BookClassifyDto>>(items);
+            return new PagedResultExtendDto<BookClassifyDto>(totalCount: listBookClassifies.Count(), items: listItems, countStatus: null);
         }
 
         public async Task<List<BookClassifyDto>> GetAllForSelect()

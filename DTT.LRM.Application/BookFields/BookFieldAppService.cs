@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.BookFields
 {
@@ -41,15 +42,12 @@ namespace DTT.LRM.BookFields
             await _bookFieldRepository.DeleteAsync(bookField);
         }
 
-        public async Task<PagedResultDto<BookFieldDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultExtendDto<BookFieldDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listBookFields = _bookFieldRepository.GetAll();
-            listBookFields = listBookFields.OrderBy("id DESC").PageBy(input);
-            return new PagedResultDto<BookFieldDto>
-            {
-                TotalCount = listBookFields.Count(),
-                Items = listBookFields.MapTo<List<BookFieldDto>>()
-            };
+            var listBookFields = _bookFieldRepository.GetAllIncluding(x=>x.BookClassify);
+            var items = listBookFields.OrderBy("id ASC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<BookFieldDto>>(items);
+            return new PagedResultExtendDto<BookFieldDto>(totalCount: listBookFields.Count(), items: listItems, countStatus: null);
         }
 
         public async Task<List<BookFieldDto>> GetAllForSelect()
@@ -62,6 +60,12 @@ namespace DTT.LRM.BookFields
         {
             var bookField = await _bookFieldRepository.GetAsync(id);
             return ObjectMapper.Map<BookFieldDto>(bookField);
+        }
+
+        public async Task<List<BookFieldDto>> GetListForSelectByBookClassifyId(int bookClassifyId)
+        {
+            var listBookFields = await _bookFieldRepository.GetAllListAsync(x => x.Status == true && x.BookClassifyId == bookClassifyId);
+            return ObjectMapper.Map<List<BookFieldDto>>(listBookFields);
         }
     }
 }

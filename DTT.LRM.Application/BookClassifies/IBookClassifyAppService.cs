@@ -12,7 +12,7 @@ namespace DTT.LRM.BookClassifies
 {
     public interface IBookClassifyAppService : IApplicationService
     {
-        Task<PagedResultDto<BookClassifyDto>> GetAll(PagedResultRequestExtendDto input);
+        Task<PagedResultExtendDto<BookClassifyDto>> GetAll(PagedResultRequestExtendDto input);
         Task<int> CreateOrUpdateAsync(CreateOrUpdateBookClassifyDto input);
         Task<BookClassifyDto> GetById(int id);
         Task DeleteById(int id);

@@ -118,6 +118,13 @@ namespace DTT.LRM.Web
                         )
                         .AddItem(
                             new MenuItemDefinition(
+                                "Publishers",
+                                L("Publishers"),
+                                url: "Publishers"
+                            )
+                        )
+                        .AddItem(
+                            new MenuItemDefinition(
                                 "Positions",
                                 L("Positions"),
                                 url: "Positions"
@@ -125,9 +132,9 @@ namespace DTT.LRM.Web
                         )
                         .AddItem(
                             new MenuItemDefinition(
-                                "Publishers",
-                                L("Publishers"),
-                                url: "Publishers"
+                                "OrganizationUnits",
+                                L("OrganizationUnits"),
+                                url: "OrganizationUnits"
                             )
                         )
                     )
@@ -138,9 +145,9 @@ namespace DTT.LRM.Web
                         )
                         .AddItem(
                             new MenuItemDefinition(
-                                "Decentralization",
-                                L("Decentralization"),
-                                url: "Decentralization"
+                                "Roles",
+                                L("Roles"),
+                                url: "Roles"
                             )
                         )
                         .AddItem(

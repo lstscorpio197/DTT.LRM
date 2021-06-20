@@ -7,6 +7,7 @@ using DTT.LRM.Authorization.Users;
 using DTT.LRM.BookCategories;
 using DTT.LRM.BookClassifies;
 using DTT.LRM.BookFields;
+using DTT.LRM.Books;
 using DTT.LRM.Employees;
 using DTT.LRM.MultiTenancy;
 using DTT.LRM.PositionQuotas;
@@ -27,6 +28,7 @@ namespace DTT.LRM.EntityFramework
         public DbSet<PositionQuota> PositionQuotas { get; set; }
         public DbSet<Reader> Readers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Book> Books { get; set; }
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
          *   But it may cause problems when working Migrate.exe of EF. If you will apply migrations on command line, do not

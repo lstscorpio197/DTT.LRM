@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
 using Abp.AutoMapper;
+using DTT.LRM.Share;
 
 namespace DTT.LRM.Positions
 {
@@ -34,15 +35,18 @@ namespace DTT.LRM.Positions
             await _positionRepository.DeleteAsync(position);
         }
 
-        public async Task<PagedResultDto<PositionDto>> GetAll(PagedResultRequestDto input)
+        public async Task<PagedResultExtendDto<PositionDto>> GetAll(PagedResultRequestExtendDto input)
         {
             var listPositions = _positionRepository.GetAll();
-            listPositions = listPositions.OrderBy("id DESC").PageBy(input);
-            return new PagedResultDto<PositionDto>
-            {
-                TotalCount = listPositions.Count(),
-                Items = listPositions.MapTo<List<PositionDto>>()
-            };
+            var items = listPositions.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<PositionDto>>(items);
+            return new PagedResultExtendDto<PositionDto>(totalCount: listPositions.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<List<PositionDto>> GetAllForSelect()
+        {
+            var listPositions = await _positionRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<PositionDto>>(listPositions);
         }
 
         public async Task<PositionDto> GetById(int id)

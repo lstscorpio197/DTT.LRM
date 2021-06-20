@@ -12,7 +12,10 @@ using DTT.LRM.Authorization;
 using DTT.LRM.Authorization.Roles;
 using DTT.LRM.Authorization.Users;
 using DTT.LRM.Roles.Dto;
+using DTT.LRM.Share;
 using Microsoft.AspNet.Identity;
+using System.Linq.Dynamic.Core;
+using Abp.Linq.Extensions;
 
 namespace DTT.LRM.Roles
 {
@@ -43,9 +46,15 @@ namespace DTT.LRM.Roles
 
         public override async Task<RoleDto> CreateAsync(CreateRoleDto input)
         {
-            CheckCreatePermission();
+            //CheckCreatePermission();
 
             var role = ObjectMapper.Map<Role>(input);
+            var roleDefault = await _roleRepository.FirstOrDefaultAsync(x => x.IsDefault == true);
+            if(roleDefault != null)
+            {
+                roleDefault.IsDefault = false;
+                await _roleManager.UpdateAsync(roleDefault);
+            }
 
             CheckErrors(await _roleManager.CreateAsync(role));
 
@@ -63,9 +72,16 @@ namespace DTT.LRM.Roles
 
         public override async Task<RoleDto> UpdateAsync(RoleDto input)
         {
-            CheckUpdatePermission();
+            //CheckUpdatePermission();
 
             var role = await _roleManager.GetRoleByIdAsync(input.Id);
+
+            var roleDefault = await _roleRepository.FirstOrDefaultAsync(x => x.IsDefault == true && x.Id != role.Id);
+            if (roleDefault != null)
+            {
+                roleDefault.IsDefault = false;
+                await _roleManager.UpdateAsync(roleDefault);
+            }
 
             ObjectMapper.Map(input, role);
 
@@ -83,7 +99,7 @@ namespace DTT.LRM.Roles
 
         public override async Task DeleteAsync(EntityDto<int> input)
         {
-            CheckDeletePermission();
+            //CheckDeletePermission();
 
             var role = await _roleManager.FindByIdAsync(input.Id);
             if (role.IsStatic)
@@ -140,6 +156,27 @@ namespace DTT.LRM.Roles
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+
+        public async Task<PagedResultExtendDto<RoleDto>> GetDataTable(PagedResultRequestExtendDto input)
+        {
+            var listRoles = _roleRepository.GetAll();
+            if (!string.IsNullOrEmpty(input.Keyword))
+            {
+                var keyword = input.Keyword.ToLower();
+                listRoles = listRoles.Where(x => x.Name.ToLower().Contains(keyword));
+            }
+            var items = listRoles.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<RoleDto>>(items);
+            return new PagedResultExtendDto<RoleDto>(totalCount: listRoles.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<bool> IsExist(string roleName, int roleId)
+        {
+            var role = await _roleRepository.FirstOrDefaultAsync(x => x.Name == roleName && x.Id != roleId);
+            if (role != null)
+                return true;
+            return false;
         }
     }
 }

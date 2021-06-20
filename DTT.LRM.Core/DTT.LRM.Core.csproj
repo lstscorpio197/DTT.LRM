@@ -214,6 +214,7 @@
     <Compile Include="BookCategories\BookCategory.cs" />
     <Compile Include="BookClassifies\BookClassify.cs" />
     <Compile Include="BookFields\BookField.cs" />
+    <Compile Include="Books\Book.cs" />
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="LRMConsts.cs" />
     <Compile Include="LRMCoreModule.cs" />

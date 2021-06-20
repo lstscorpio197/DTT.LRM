@@ -1,7 +1,219 @@
-﻿
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model DTT.LRM.Web.Models.Books.CreateOrUpdateModel
 @{
     ViewBag.ActiveMenu = PageNames.Books; //The menu item will be active for this page.
 }
+@section scripts
+{
+    <script src="~/Views/Books/CreateOrUpdate.js"></script>
+}
+<div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
+    <h4>
+        <a href="http://localhost:61814/Books/" class="mr-2">
+            <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 288.312 288.312" style="enable-background:new 0 0 288.312 288.312;" xml:space="preserve">
+            <g>
+            <path id="Subdirectory_Arrow_Up_Left" d="M127.353,3.555c-4.704-4.74-12.319-4.74-17.011,0L15.314,99.653
+		                    c-4.74,4.788-4.547,12.884,0.313,17.48l94.715,95.785c4.704,4.74,12.319,4.74,17.011,0c4.704-4.74,4.704-12.427,0-17.167
+		                    l-74.444-75.274h199.474v155.804c0,6.641,5.39,12.03,12.03,12.03c6.641,0,12.03-5.39,12.03-12.03V108.231
+		                    c0-6.641-5.39-12.03-12.03-12.03H52.704l74.648-75.49C132.056,15.982,132.056,8.295,127.353,3.555z" />
+                    </g>
+                </svg>
+        </a>
+        Danh sách sách
+    </h4>
+    <button class="btn btn-primary d-flex align-items-center submit" type="button">
+        <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+        Lưu
+    </button>
+</div>
+<form name="BookForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" id="id" value="@Model.Book.Id" />
+            <input type="hidden" name="Status" id="bookstatus" value="@Model.Book.Status" />
+            @if (Model.Book.Id > 0)
+            {
+                <i style="color:red"> * Bạn không thể chỉnh sửa phân loại sách, lĩnh vực sách, mã sách, tên sách.</i>
+            }
 
-<h2>CreateOrUpdate</h2>
+            <div class="row clearfix" style="margin-top:20px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @if (Model.Book.Id > 0)
+                            {
+                                <input id="bookclassifyid" type="text" value="@(Model.Book.BookCategory?.BookField?.BookClassifyId)" name="BookClassifyId" class="form-control hidden" />
+                                <input id="bookclassify" type="text" value="@(Model.Book.BookCategory?.BookField?.BookClassify?.Name)" readonly name="BookClassify" class="form-control" />
+                                <label for="bookclassify" class="form-label">Phân loại sách</label>
+                            }
+                            else
+                            {
+                                <select class="w-100 selectpicker show-tick" name="BookClassifyId">
+                                    <option value="" code="xxx">-- Chọn phân loại sách --</option>
+                                    @foreach (var item in Model.ListBookClassifies)
+                                    {
+                                        <option value="@item.Id" code="@item.CodeText" @(item.Id == Model.Book.BookCategory?.BookField?.BookClassifyId ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @if (Model.Book.Id > 0)
+                            {
+                                <input id="bookfieldid" type="text" value="@(Model.Book.BookCategory?.BookFieldId)" name="BookFieldId" class="form-control hidden" />
+                                <input id="bookfield" type="text" value="@(Model.Book.BookCategory?.BookField?.Name)" readonly name="BookField" class="form-control" />
+                                <label for="bookfield" class="form-label">Lĩnh vực sách</label>
+                            }
+                            else
+                            {
+                                <select class="w-100 selectpicker show-tick" name="BookFieldId">
+                                    <option value="">-- Chọn lĩnh vực sách --</option>
+                                </select>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row clearfix">
+                @if (Model.Book.Id > 0)
+                {
+                    <input id="bookcategoryid" type="text" value="@(Model.Book.BookCategoryId)" name="BookCategoryId" class="form-control hidden" />
+                }
+                else
+                {
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="">
+                                <input id="isnewcategory" type="checkbox" name="IsNewCategory" class="form-control" />
+                                <label for="isnewcategory" class="form-label">Loại sách chưa có trong hệ thống</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" id="ToggleSelect">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <select class="w-100 selectpicker show-tick" name="BookCategoryId">
+                                    <option value="">-- Chọn loại sách --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <input id="code" type="text" name="Code" value="@Model.Book.Code" placeholder="Mã sách tự động thay đổi theo phân loại sách" readonly class="validate form-control">
+                            <label for="code" class="form-label">Mã sách</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <input id="name" type="text" name="Name" value="@Model.Book.Name" placeholder="Tên sách tự động thay đổi theo loại sách" readonly class="validate form-control">
+                            <label for="name" class="form-label">Tên sách</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <select class="w-100" name="PublisherId">
+                                <option value="">-- Chọn nhà xuất bản --</option>
+                                @foreach (var item in Model.ListPublishers)
+                                {
+                                    <option value="@item.Id" @(item.Id == Model.Book.PublisherId ? "selected" : "")>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="releaseyear" type="number" name="ReleaseYear" value="@(Model.Book.ReleaseYear > 0?Model.Book.ReleaseYear:DateTime.Today.Year)" class="validate form-control">
+                            <label for="releaseyear" class="form-label">Năm xuất bản</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="language" type="text" name="Language" value="@Model.Book.Language" class="validate form-control">
+                            <label for="language" class="form-label">Ngôn ngữ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="author" type="text" name="Author" value="@Model.Book.Author" class="validate form-control">
+                            <label for="author" class="form-label">Tác giả</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="pagecount" type="number" name="PageCount" value="@Model.Book.PageCount" class="validate form-control">
+                            <label for="pagecount" class="form-label">Số trang</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="price" type="number" name="Price" value="@(Math.Round(Model.Book.Price))" class="validate form-control">
+                            <label for="price" class="form-label">Giá</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Book.Id <= 0)
+            {
+                <div class="row clearfix">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="amount" type="number" name="Amount" value="" class="validate form-control">
+                                <label for="amount" class="form-label">Số lượng</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="note" type="text" name="Note" value="@Model.Book.Note" class="validate form-control">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

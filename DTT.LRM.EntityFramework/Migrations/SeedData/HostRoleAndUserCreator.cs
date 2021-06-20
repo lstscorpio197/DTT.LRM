@@ -48,7 +48,6 @@ namespace DTT.LRM.Migrations.SeedData
                 //Grant all tenant permissions
                 var permissions = PermissionFinder
                     .GetAllPermissions(new LRMAuthorizationProvider())
-                    .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Host))
                     .ToList();
 
                 foreach (var permission in permissions)

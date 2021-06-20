@@ -83,7 +83,7 @@ $(document).ready(function () {
 
 $('.btn-trash').on('click', function () {
     abp.message.confirm(
-        "Bạn có chắc muốn xóa các phân loại đã chọn?", "Xóa?",
+        "Bạn có chắc muốn xóa các nhà xuất bản đã chọn?", "Xóa?",
         function (isConfirmed) {
             if (isConfirmed) {
                 let count = $('#myTable tbody tr input[type=checkbox]:checked').length;

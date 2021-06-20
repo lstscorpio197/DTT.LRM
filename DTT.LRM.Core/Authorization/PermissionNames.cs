@@ -6,7 +6,18 @@
 
         public const string Pages_Users = "Pages.Users";
 
+        public const string Pages_UserList = "Pages.UserList";
+        public const string Pages_UserList_Update = "Pages.UserList.Update";
+
         public const string Pages_Roles = "Pages.Roles";
+        public const string Pages_Roles_Create = "Pages.Roles.Create";
+        public const string Pages_Roles_Update = "Pages.Roles.Update";
+        public const string Pages_Roles_Delete = "Pages.Roles.Delete";
+
+        public const string Pages_Books = "Pages.Books";
+        public const string Pages_Books_Create = "Pages.Books.Create";
+        public const string Pages_Books_Update = "Pages.Books.Update";
+        public const string Pages_Books_Delete = "Pages.Books.Delete";
 
         public const string Pages_BookClassifies = "Pages.BookClassifies";
         public const string Pages_BookClassifies_Create = "Pages.BookClassifies.Create";
@@ -47,6 +58,9 @@
         public const string Pages_Readers_Create = "Pages.Readers.Create";
         public const string Pages_Readers_Update = "Pages.Readers.Update";
         public const string Pages_Readers_Delete = "Pages.Readers.Delete";
+
+        public const string Pages_Systems = "Pages.Systems";
+        public const string Pages_Administration = "Pages.Administration";
 
     }
 }

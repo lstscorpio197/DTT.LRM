@@ -43,7 +43,7 @@ namespace DTT.LRM.Web.Controllers.BookFields
             {
                 data = data,
                 startIndex = start + 1
-            });
+            },JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> CreateOrUpdate(int? bookFieldId)
