@@ -76,8 +76,14 @@ $('select[name=BookCategoryId]').on('change', function () {
 })
 
 
-$('#isnewcategory').on('click', function () {
+$(document).on('click', '#isnewcategory', function () {
     $('#ToggleSelect').toggle();
+    if ($(this).is(':checked')) {
+        $('#TotalBorrowTime').removeClass('hide');
+    }
+    else {
+        $('#TotalBorrowTime').addClass('hide');
+    }
     AutoRenderBookName();
 })
 
@@ -129,9 +135,9 @@ _$form.validate({
 
 
 $(document).on('click', '.submit', function () {
-    if (!_$form.valid()) {
-        return false;
-    }
+    //if (!_$form.valid()) {
+    //    return false;
+    //}
     let data = new FormData();
     let book = _$form.serializeFormToObject();
     console.log(book);
@@ -156,43 +162,49 @@ $(document).on('click', '.submit', function () {
         newCategory.code = 0;
         newCategory.name = book.Name;
         newCategory.bookFieldId = book.BookFieldId;
+        newCategory.totalBorrowTime = book.TotalBorrowTime;
         newCategory.status = true;
+        if (!newCategory.totalBorrowTime > 0 || newCategory.totalBorrowTime <= 0) {
+            abp.notify.warn("Thời gian mượn tối thiểu là 1 ngày");
+            return false;
+        }
         data.append('book', JSON.stringify(bookIpn));
         data.append('newBookCategory', JSON.stringify(newCategory));
+        console.log(newCategory.totalBorrowTime);
     }
     else {
         bookIpn.bookCategoryId = book.BookCategoryId;
         data.append('book', JSON.stringify(bookIpn));
     }
-    $.ajax({
-        dataType: "json",
-        type: "POST",
-        url: "/Books/CreateOrUpdate",
-        data: data,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-            if (res.result == 0) {
-                abp.notify.warn("Mã sách đã tồn tại");
-            }
-            else if (res.result == -1) {
-                abp.notify.error("Xảy ra lỗi");
-            }
-            else {
-                if (book.Id > 0) {
-                    abp.notify.success("Lưu thành công");
-                    setTimeout(function () {
-                        window.location = abp.toAbsAppPath('Books/Index');
-                    }, 500);
-                }
-                else {
-                    abp.notify.success("Thêm mới thành công");
-                    setTimeout(function () {
-                        window.location = abp.toAbsAppPath('Books/Index');
-                    }, 500);
-                }
-            }
-        }
-    });
+    //$.ajax({
+    //    dataType: "json",
+    //    type: "POST",
+    //    url: "/Books/CreateOrUpdate",
+    //    data: data,
+    //    contentType: false,
+    //    processData: false,
+    //    success: function (res) {
+    //        if (res.result == 0) {
+    //            abp.notify.warn("Mã sách đã tồn tại");
+    //        }
+    //        else if (res.result == -1) {
+    //            abp.notify.error("Xảy ra lỗi");
+    //        }
+    //        else {
+    //            if (book.Id > 0) {
+    //                abp.notify.success("Lưu thành công");
+    //                setTimeout(function () {
+    //                    window.location = abp.toAbsAppPath('Books/Index');
+    //                }, 500);
+    //            }
+    //            else {
+    //                abp.notify.success("Thêm mới thành công");
+    //                setTimeout(function () {
+    //                    window.location = abp.toAbsAppPath('Books/Index');
+    //                }, 500);
+    //            }
+    //        }
+    //    }
+    //});
 })
 

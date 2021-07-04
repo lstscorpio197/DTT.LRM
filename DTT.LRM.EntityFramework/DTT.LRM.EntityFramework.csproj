@@ -313,6 +313,22 @@
     <Compile Include="Migrations\202106171431469_Edit_BookEntity.designer.cs">
       <DependentUpon>202106171431469_Edit_BookEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106231803338_Add_EntityBookUsing.cs" />
+    <Compile Include="Migrations\202106231803338_Add_EntityBookUsing.designer.cs">
+      <DependentUpon>202106231803338_Add_EntityBookUsing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106260839196_Edit_BorrowEntity.cs" />
+    <Compile Include="Migrations\202106260839196_Edit_BorrowEntity.designer.cs">
+      <DependentUpon>202106260839196_Edit_BorrowEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106271121259_Edit_Entity.cs" />
+    <Compile Include="Migrations\202106271121259_Edit_Entity.designer.cs">
+      <DependentUpon>202106271121259_Edit_Entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107040630105_Edit-BookReaderUsingEntity.cs" />
+    <Compile Include="Migrations\202107040630105_Edit-BookReaderUsingEntity.designer.cs">
+      <DependentUpon>202107040630105_Edit-BookReaderUsingEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
@@ -394,6 +410,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106171431469_Edit_BookEntity.resx">
       <DependentUpon>202106171431469_Edit_BookEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106231803338_Add_EntityBookUsing.resx">
+      <DependentUpon>202106231803338_Add_EntityBookUsing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106260839196_Edit_BorrowEntity.resx">
+      <DependentUpon>202106260839196_Edit_BorrowEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106271121259_Edit_Entity.resx">
+      <DependentUpon>202106271121259_Edit_Entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107040630105_Edit-BookReaderUsingEntity.resx">
+      <DependentUpon>202107040630105_Edit-BookReaderUsingEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

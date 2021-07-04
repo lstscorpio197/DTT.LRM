@@ -71,11 +71,17 @@
     <text name="Decentralization" value="Phân quyền" />
     <text name="UserList" value="Danh sách người dùng" />
     <text name="Roles" value="Nhóm quyền" />
+    <text name="Borrows" value="Mượn sách" />
+    <text name="GiveBacks" value="Trả sách" />
+    <text name="Liquidations" value="Thanh lý sách" />
+    <text name="Violates" value="Lỗi vi phạm" />
+    <text name="BookUsing" value="Mượn - trả sách" />
     
     <!--Permisstion-->
     <text name="View" value="Xem" />
     <text name="Add" value="Thêm" />
     <text name="Edit" value="Sửa" />
     <text name="Delete" value="Xóa" />
+    <text name="Do" value="Thực hiện" />
   </texts>
 </localizationDictionary>

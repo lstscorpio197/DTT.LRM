@@ -22,11 +22,16 @@ namespace DTT.LRM.Readers
         }
         public async Task<int> CreateOrUpdateAsync(CreateOrUpdateReaderDto input)
         {
-            var check = await _readerRepository.FirstOrDefaultAsync(x => x.Code == input.Code && x.Id != input.Id);
-            if (check != null)
-                return 0;
-            var obj = ObjectMapper.Map<Reader>(input);
-            return await _readerRepository.InsertOrUpdateAndGetIdAsync(obj);
+            try
+            {
+                var obj = ObjectMapper.Map<Reader>(input);
+                return await _readerRepository.InsertOrUpdateAndGetIdAsync(obj);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                return -1;
+            }
         }
 
         public async Task DeleteById(int id)
@@ -35,11 +40,20 @@ namespace DTT.LRM.Readers
             await _readerRepository.DeleteAsync(reader);
         }
 
+        public async Task<string> EmailIsExist(string email, int id)
+        {
+            var check = await _readerRepository.FirstOrDefaultAsync(x => x.Email == email && x.Id != id);
+            if (check != null)
+                return "Email đã tồn tại.";
+            return string.Empty;
+        }
+
         public async Task<PagedResultExtendDto<ReaderDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listReaders = _readerRepository.GetAll();
-            var items = listReaders.OrderBy("id DESC").PageBy(input);
+            var listReaders = _readerRepository.GetAllIncluding(x => x.Position, x=> x.OrganizationUnit);
+            var items = listReaders.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<ReaderDto>>(items);
+            listItems = listItems.Select(x => { x.OrganizationUnitName = x.OrganizationUnit?.DisplayName; x.OrganizationUnit = null; return x; }).ToList();
             return new PagedResultExtendDto<ReaderDto>(totalCount: listReaders.Count(), items: listItems, countStatus: null);
         }
 
@@ -47,6 +61,20 @@ namespace DTT.LRM.Readers
         {
             var reader = await _readerRepository.GetAsync(id);
             return ObjectMapper.Map<ReaderDto>(reader);
+        }
+
+        public async Task<string> CodeIsExist(string code, int id)
+        {
+            var check = await _readerRepository.FirstOrDefaultAsync(x => x.Code == code && x.Id != id);
+            if (check != null)
+                return "Mã độc giả đã tồn tại.";
+            return string.Empty;
+        }
+
+        public async Task<List<ReaderDto>> GetAllForSelect()
+        {
+            var listReaders = await _readerRepository.GetAllListAsync(x=>x.Status == true);
+            return ObjectMapper.Map<List<ReaderDto>>(listReaders);
         }
     }
 }

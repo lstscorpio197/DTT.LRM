@@ -85,5 +85,40 @@ namespace DTT.LRM.Books
                 return new BookDto();
             }
         }
+
+        public async Task<List<BookDto>> GetListBookForBorrow(AdvanceSearchBookDto input)
+        {
+            var author = string.IsNullOrEmpty(input.Author) ? string.Empty : input.Author.ToLower();
+            var query = _bookRepository.GetAllIncluding(x=>x.Publisher);
+            var listBook = query.Where(x => x.Author.ToLower().Contains(author) &&
+                                        (input.ReleaseYear > 0 ? x.ReleaseYear == input.ReleaseYear : true) &&
+                                        (input.PublisherId > 0 ? x.PublisherId == input.PublisherId : true) &&
+                                        x.Status == (int)LRMEnum.BookStatus.UnUsed&&
+                                        x.BookCategoryId == input.BookCategoryId)
+                                .ToList();
+            return ObjectMapper.Map<List<BookDto>>(listBook);
+        }
+
+        public async Task<int> UpdateBookStatus(List<int> listBookIds, int status)
+        {
+            try
+            {
+                foreach (int bookId in listBookIds)
+                {
+                    var book = await _bookRepository.GetAsync(bookId);
+                    if (book != null)
+                    {
+                        book.Status = status;
+                        await _bookRepository.UpdateAsync(book);
+                    }
+                }
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                return 0;
+            }
+        }
     }
 }

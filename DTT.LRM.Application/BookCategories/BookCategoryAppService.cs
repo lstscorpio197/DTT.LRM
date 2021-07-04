@@ -55,6 +55,12 @@ namespace DTT.LRM.BookCategories
             return new PagedResultExtendDto<BookCategoryDto>(totalCount: listBookCategories.Count(), items: listItems, countStatus: null);
         }
 
+        public async Task<List<BookCategoryDto>> GetAllForSelect()
+        {
+            var listBookCategories = await _bookCategoryRepository.GetAllListAsync(x => x.Status == true);
+            return ObjectMapper.Map<List<BookCategoryDto>>(listBookCategories);
+        }
+
         public async Task<BookCategoryDto> GetById(int id)
         {
             var bookCategory = await _bookCategoryRepository.GetAsync(id);

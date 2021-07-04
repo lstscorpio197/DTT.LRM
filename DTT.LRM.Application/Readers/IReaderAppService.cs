@@ -16,5 +16,8 @@ namespace DTT.LRM.Readers
         Task<int> CreateOrUpdateAsync(CreateOrUpdateReaderDto input);
         Task<ReaderDto> GetById(int id);
         Task DeleteById(int id);
+        Task<string> CodeIsExist(string code, int id);
+        Task<string> EmailIsExist(string email, int id);
+        Task<List<ReaderDto>> GetAllForSelect();
     }
 }

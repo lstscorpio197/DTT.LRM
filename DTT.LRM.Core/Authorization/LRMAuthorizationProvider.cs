@@ -66,6 +66,18 @@ namespace DTT.LRM.Authorization
 
             context.CreatePermission(PermissionNames.Pages_Systems, L("View"));
             context.CreatePermission(PermissionNames.Pages_Administration, L("View"));
+
+            context.CreatePermission(PermissionNames.Pages_Borrows, L("View"));
+            context.CreatePermission(PermissionNames.Pages_Borrows_Create, L("Add"));
+            //context.CreatePermission(PermissionNames.Pages_Borrows_Update, L("Edit"));
+            context.CreatePermission(PermissionNames.Pages_Borrows_Do, L("Do"));
+            context.CreatePermission(PermissionNames.Pages_Borrows_Delete, L("Delete"));
+
+            context.CreatePermission(PermissionNames.Pages_GiveBacks, L("View"));
+            context.CreatePermission(PermissionNames.Pages_GiveBacks_Create, L("Add"));
+
+            context.CreatePermission(PermissionNames.Pages_Liquidations, L("View"));
+            context.CreatePermission(PermissionNames.Pages_Liquidations_Create, L("Add"));
         }
 
         private static ILocalizableString L(string name)

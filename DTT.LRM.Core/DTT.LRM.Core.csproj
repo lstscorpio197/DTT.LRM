@@ -211,11 +211,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookBorrows\BookBorrow.cs" />
     <Compile Include="BookCategories\BookCategory.cs" />
     <Compile Include="BookClassifies\BookClassify.cs" />
     <Compile Include="BookFields\BookField.cs" />
+    <Compile Include="BookGiveBacks\BookGiveBack.cs" />
+    <Compile Include="BookLiquidations\BookLiquidation.cs" />
+    <Compile Include="BookReaderUsings\BookReaderUsing.cs" />
     <Compile Include="Books\Book.cs" />
+    <Compile Include="Borrows\Borrow.cs" />
     <Compile Include="Employees\Employee.cs" />
+    <Compile Include="GiveBacks\GiveBack.cs" />
+    <Compile Include="Liquidations\Liquidation.cs" />
     <Compile Include="LRMConsts.cs" />
     <Compile Include="LRMCoreModule.cs" />
     <Compile Include="AppVersionHelper.cs" />
@@ -244,6 +251,7 @@
     <Compile Include="Publishers\Publisher.cs" />
     <Compile Include="Readers\Reader.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
+    <Compile Include="Violates\Violate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

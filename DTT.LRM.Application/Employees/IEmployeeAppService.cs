@@ -16,5 +16,8 @@ namespace DTT.LRM.Employees
         Task<int> CreateOrUpdateAsync(CreateOrUpdateEmployeeDto input);
         Task<EmployeeDto> GetById(int id);
         Task DeleteById(int id);
+        Task<string> CodeIsExist(string code, int id);
+        Task<string> EmailIsExist(string email, int id);
+        Task<EmployeeDto> GetByUserId(long userId);
     }
 }

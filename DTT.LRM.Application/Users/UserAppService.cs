@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +17,6 @@ using Microsoft.AspNet.Identity;
 
 namespace DTT.LRM.Users
 {
-    [AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UpdateUserDto>, IUserAppService
     {
         private readonly UserManager _userManager;
@@ -46,7 +45,7 @@ namespace DTT.LRM.Users
 
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
         {
-            CheckCreatePermission();
+            //CheckCreatePermission();
 
             var user = ObjectMapper.Map<User>(input);
 
@@ -71,13 +70,13 @@ namespace DTT.LRM.Users
 
         public override async Task<UserDto> UpdateAsync(UpdateUserDto input)
         {
-            CheckUpdatePermission();
+            //CheckUpdatePermission();
 
             var user = await _userManager.GetUserByIdAsync(input.Id);
 
-            MapToEntity(input, user);
+            //MapToEntity(input, user);
 
-            CheckErrors(await _userManager.UpdateAsync(user));
+            //CheckErrors(await _userManager.UpdateAsync(user));
 
             if (input.RoleNames != null)
             {
@@ -129,6 +128,14 @@ namespace DTT.LRM.Users
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+
+        public async Task<string> UserNameIsExist(string userName, long id)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user != null && user.Id != id)
+                return "Tài khoản đã tồn tại.";
+            return string.Empty;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace DTT.LRM.Readers.Dto
                     return "Không sử dụng";
             }
         }
-        public string OrganizationUnitName => OrganizationUnit?.DisplayName;
+        public string OrganizationUnitName { get; set; }
         public string PositionName => Position?.Name;
     }
 }

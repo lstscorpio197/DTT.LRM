@@ -368,7 +368,6 @@
           return;
         }
 
-        console.log(logObject);
       };
 
       abp.log.debug = function (logObject) {

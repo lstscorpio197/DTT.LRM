@@ -29,6 +29,14 @@
     </button>
 </div>
 <form name="ReaderForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    <ul class="nav nav-tabs tab-nav-right mb-3" role="tablist">
+            <li role="presentation" class="nav-item">
+                <a href="#edit-user-details" data-toggle="tab">Thông tin độc giả / tài khoản</a>
+            </li>
+            <li role="presentation">
+                <a href="#edit-user-roles" data-toggle="tab">Nhóm quyền</a>
+            </li>
+        </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
             <input type="hidden" name="Id" value="@Model.Reader.Id" />
@@ -37,7 +45,6 @@
                     <span style="font-weight:bold">Thông tin độc giả:</span>
                 </div>
             </div>
-
             <div class="row clearfix" style="margin-top:20px;">
                 <div class="col-sm-6">
                     <div class="form-group form-float">
@@ -90,7 +97,7 @@
                 <div class="col-sm-6">
                     <div class="form-group form-float">
                         <div class="form-line focused">
-                            <input id="dayofbirth" type="date" name="DayOfBirth" value="@Model.Reader.DayOfBirth.ToString("yyyy/MM/dd")" class="validate form-control">
+                            <input id="dayofbirth" type="date" name="DayOfBirth" value="@Model.Reader.DayOfBirth.ToString("yyyy-MM-dd")" class="validate form-control">
                             <label for="dayofbirth" class="form-label">Ngày sinh</label>
                         </div>
                     </div>
@@ -177,7 +184,7 @@
                 <div class="col-sm-6">
                     <div class="form-group form-float">
                         <div class="form-line focused">
-                            <input id="username" type="text" name="UserName" value="@(Model.Reader.User?.UserName)" @(Model.Reader.Id>0?"readonly":"") class="validate form-control">
+                            <input id="username" type="text" name="UserName" value="@(string.IsNullOrEmpty(Model.User.UserName)?"":Model.User.UserName)" @(Model.Reader.Id > 0 ? "readonly" : "") class="validate form-control">
                             <label for="username" class="form-label">Tên đăng nhập</label>
                         </div>
                     </div>
@@ -185,7 +192,7 @@
                 <div class="col-sm-6">
                     <div class="form-group form-float">
                         <div class="form-line focused">
-                            <input id="password" type="password" name="Password" value="@(Model.Reader.User?.Password)" @(Model.Reader.Id>0?"readonly":"") class="validate form-control">
+                            <input id="password" type="password" name="Password" value="@(string.IsNullOrEmpty(Model.User.Password)?"":Model.User.Password.Substring(0,15))" @(Model.Reader.Id > 0 ? "readonly" : "") class="validate form-control">
                             <label for="password" class="form-label">Mật khẩu</label>
                         </div>
                     </div>
@@ -214,6 +221,21 @@
                 </div>
             }
 
+        </div>
+
+        <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">
+            <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        @foreach (var role in Model.Roles)
+                        {
+            <div class="col-sm-6">
+                <input type="checkbox" name="role" data-role-name="@role.Name" title="@role.Description" class="filled-in" id="@string.Format("role{0}",role.Id)" @(Model.UserIsInRole(role) ? "checked" : "") />
+                <label for="@string.Format("role{0}",role.Id)" title="@role.DisplayName">@role.Name</label>
+            </div>}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </form>

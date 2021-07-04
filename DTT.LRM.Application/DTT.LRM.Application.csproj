@@ -224,6 +224,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookBorrows\BookBorrowAppService.cs" />
+    <Compile Include="BookBorrows\Dto\BookBorrowDto.cs" />
+    <Compile Include="BookBorrows\Dto\CreateOrUpdateBookBorrowDto.cs" />
+    <Compile Include="BookBorrows\IBookBorrowAppService.cs" />
     <Compile Include="BookCategories\BookCategoryAppService.cs" />
     <Compile Include="BookCategories\Dto\BookCategoryDto.cs" />
     <Compile Include="BookCategories\Dto\CreateOrUpdateBookCategoryDto.cs" />
@@ -237,14 +241,31 @@
     <Compile Include="BookFields\Dto\BookFieldDto.cs" />
     <Compile Include="BookFields\Dto\CreateOrUpdateBookFieldDto.cs" />
     <Compile Include="BookFields\IBookFieldAppService.cs" />
+    <Compile Include="BookGiveBacks\BookGiveBackAppService.cs" />
+    <Compile Include="BookGiveBacks\Dto\BookGiveBackAndViolateDto.cs" />
+    <Compile Include="BookGiveBacks\Dto\BookGiveBackDto.cs" />
+    <Compile Include="BookGiveBacks\Dto\CreateOrUpdateBookGiveBackDto.cs" />
+    <Compile Include="BookGiveBacks\IBookGiveBackAppService.cs" />
+    <Compile Include="BookReaderUsings\BookReaderUsingAppService.cs" />
+    <Compile Include="BookReaderUsings\Dto\BookReaderUsingDto.cs" />
+    <Compile Include="BookReaderUsings\Dto\CreateOrUpdateBookReaderUsingDto.cs" />
+    <Compile Include="BookReaderUsings\IBookReaderUsingAppService.cs" />
     <Compile Include="Books\BookAppService.cs" />
     <Compile Include="Books\Dto\BookDto.cs" />
     <Compile Include="Books\Dto\CreateOrUpdateBookDto.cs" />
     <Compile Include="Books\IBookAppService.cs" />
+    <Compile Include="Borrows\BorrowAppService.cs" />
+    <Compile Include="Borrows\Dto\BorrowDto.cs" />
+    <Compile Include="Borrows\Dto\CreateOrUpdateBorrowDto.cs" />
+    <Compile Include="Borrows\IBorrowAppService.cs" />
     <Compile Include="Employees\Dto\CreateOrUpdateEmployeeDto.cs" />
     <Compile Include="Employees\Dto\EmployeeDto.cs" />
     <Compile Include="Employees\EmployeeAppService.cs" />
     <Compile Include="Employees\IEmployeeAppService.cs" />
+    <Compile Include="GiveBacks\Dto\CreateOrUpdateGiveBackDto.cs" />
+    <Compile Include="GiveBacks\Dto\GiveBackDto.cs" />
+    <Compile Include="GiveBacks\GiveBackAppService.cs" />
+    <Compile Include="GiveBacks\IGiveBackAppService.cs" />
     <Compile Include="LRMApplicationModule.cs" />
     <Compile Include="LRMAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />
@@ -291,6 +312,7 @@
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
     <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="Share\AdvanceSearchBookDto.cs" />
     <Compile Include="Share\CountStatus.cs" />
     <Compile Include="Share\PagedResultExtendDto.cs" />
     <Compile Include="Share\PagedResultRequestExtendDto.cs" />
@@ -305,6 +327,10 @@
     <Compile Include="Sessions\ISessionAppService.cs" />
     <Compile Include="Sessions\SessionAppService.cs" />
     <Compile Include="Users\UserAppService.cs" />
+    <Compile Include="Violates\Dto\CreateOrUpdateViolateDto.cs" />
+    <Compile Include="Violates\Dto\ViolateDto.cs" />
+    <Compile Include="Violates\IViolateAppService.cs" />
+    <Compile Include="Violates\ViolateAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

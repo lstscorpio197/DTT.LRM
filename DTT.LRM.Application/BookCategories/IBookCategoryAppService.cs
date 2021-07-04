@@ -17,6 +17,7 @@ namespace DTT.LRM.BookCategories
         Task<BookCategoryDto> GetById(int id);
         Task DeleteById(int id);
         Task<List<BookCategoryDto>> GetListForSelectByBookFieldId(int bookFieldId);
+        Task<List<BookCategoryDto>> GetAllForSelect();
         Task<IdAndCodeResultDto> CreateNewBookCategoryWithName(CreateOrUpdateBookCategoryDto input);
     }
 }

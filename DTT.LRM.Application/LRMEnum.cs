@@ -13,7 +13,8 @@ namespace DTT.LRM
         {
             UnUsed = 0, //Không sử dụng
             Using = 1, //Đang sử dụng
-            Lost = -1 //Bị mất
+            Lost = -1, //Bị mất
+            Liquidated = -2 //Đã thanh lý
         }
     }
 }

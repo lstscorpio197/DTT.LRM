@@ -25,13 +25,51 @@ namespace DTT.LRM.Web
                         requiresAuthentication: true
                     )
                 )
+                .AddItem( //Menu items below is just for demonstration!
+                    new MenuItemDefinition(
+                        "BookUsing",
+                        L("BookUsing"),
+                        icon: "menu"
+                    )
+                    .AddItem(
+                        new MenuItemDefinition(
+                            "Borrows",
+                            L("Borrows"),
+                            url: "Borrows",
+                            icon: "book",
+                            requiresAuthentication: true,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Borrows)
+                        )
+                    )
+                    .AddItem(
+                        new MenuItemDefinition(
+                            "GiveBacks",
+                            L("GiveBacks"),
+                            url: "GiveBacks",
+                            icon: "book",
+                            requiresAuthentication: true,
+                            permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_GiveBacks)
+                        )
+                    )
+                )
+                //.AddItem(
+                //    new MenuItemDefinition(
+                //        PageNames.Books,
+                //        L("Liquidations"),
+                //        url: "Liquidations",
+                //        icon: "book",
+                //        requiresAuthentication: true,
+                //        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Liquidations)
+                //    )
+                //)
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Books,
                         L("Books"),
                         url: "Books",
                         icon: "book",
-                        requiresAuthentication: true
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Books)
                     )
                 )
                 .AddItem(
@@ -40,7 +78,8 @@ namespace DTT.LRM.Web
                         L("Readers"),
                         url: "Readers",
                         icon: "people",
-                        requiresAuthentication: true
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Readers)
                     )
                 )
                 .AddItem(
@@ -49,41 +88,10 @@ namespace DTT.LRM.Web
                         L("Employees"),
                         url: "Employees",
                         icon: "people",
-                        requiresAuthentication: true
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Employees)
                     )
                 )
-                //.AddItem(
-                //    new MenuItemDefinition(
-                //        PageNames.Tenants,
-                //        L("Tenants"),
-                //        url: "Tenants",
-                //        icon: "business",
-                //        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Tenants)
-                //    )
-                //).AddItem(
-                //    new MenuItemDefinition(
-                //        PageNames.Users,
-                //        L("Users"),
-                //        url: "Users",
-                //        icon: "people",
-                //        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Users)
-                //    )
-                //).AddItem(
-                //    new MenuItemDefinition(
-                //        PageNames.Roles,
-                //        L("Roles"),
-                //        url: "Roles",
-                //        icon: "local_offer",
-                //        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
-                //    )
-                //).AddItem(
-                //    new MenuItemDefinition(
-                //        PageNames.About,
-                //        L("About"),
-                //        url: "About",
-                //        icon: "info"
-                //    )
-                //)
                 .AddItem( //Menu items below is just for demonstration!
                     new MenuItemDefinition(
                         "Systems",
@@ -99,42 +107,48 @@ namespace DTT.LRM.Web
                             new MenuItemDefinition(
                                 "BookClassifies",
                                 L("BookClassifies"),
-                                url: "BookClassifies"
+                                url: "BookClassifies",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_BookClassifies)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "BookFields",
                                 L("BookFields"),
-                                url: "BookFields"
+                                url: "BookFields",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_BookFields)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "BookCategories",
                                 L("BookCategories"),
-                                url: "BookCategories"
+                                url: "BookCategories",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_BookCategories)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "Publishers",
                                 L("Publishers"),
-                                url: "Publishers"
+                                url: "Publishers",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Publishers)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "Positions",
                                 L("Positions"),
-                                url: "Positions"
+                                url: "Positions",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Positions)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "OrganizationUnits",
                                 L("OrganizationUnits"),
-                                url: "OrganizationUnits"
+                                url: "OrganizationUnits",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_OrganizationUnits)
                             )
                         )
                     )
@@ -147,14 +161,16 @@ namespace DTT.LRM.Web
                             new MenuItemDefinition(
                                 "Roles",
                                 L("Roles"),
-                                url: "Roles"
+                                url: "Roles",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Roles)
                             )
                         )
                         .AddItem(
                             new MenuItemDefinition(
                                 "UserList",
                                 L("UserList"),
-                                url: "UserList"
+                                url: "UserList",
+                                permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_UserList)
                             )
                         )
                     )

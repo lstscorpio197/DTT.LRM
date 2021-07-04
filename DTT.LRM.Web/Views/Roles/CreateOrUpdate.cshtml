@@ -83,33 +83,63 @@
                         <div class="col-sm-12">
                             <h5>Chung</h5>
                             <div class="col-sm-12">
+                                <h6>Mượn sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Borrows")))
+                                {
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Trả sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("GiveBacks")))
+                                {
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h6>Thanh lý sách</h6>
+                                @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Liquidations")))
+                                {
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
+                            </div>
+
+                            <div class="col-sm-12">
                                 <h6>Danh sách sách</h6>
                                 @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Books")))
                                 {
-                    <div class="col-sm-3">
-                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
-                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
-                    </div>}
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
                             </div>
 
                             <div class="col-sm-12">
                                 <h6>Độc giả</h6>
                                 @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Readers")))
                                 {
-                    <div class="col-sm-3">
-                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
-                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
-                    </div>}
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
                             </div>
 
                             <div class="col-sm-12">
                                 <h6>Nhân viên</h6>
                                 @foreach (var permission in Model.Permissions.Where(x => x.Name.Contains("Employees")))
                                 {
-                    <div class="col-sm-3">
-                        <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
-                        <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
-                    </div>}
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="permission" value="@permission.Name" title="@permission.Description" class="filled-in" id="@string.Format("permission{0}", permission.Name.Replace(".",""))" @(Model.HasPermission(permission) ? "checked" : "") @(Model.Role.IsStatic ? "disabled" : "") />
+                            <label for="@string.Format("permission{0}", permission.Name.Replace(".",""))" title="@permission.DisplayName">@permission.DisplayName</label>
+                        </div>}
                             </div>
                         </div>
 

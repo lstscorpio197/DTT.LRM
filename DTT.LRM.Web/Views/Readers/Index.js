@@ -104,7 +104,7 @@ $('.btn-trash').on('click', function () {
                 let count = $('#myTable tbody tr input[type=checkbox]:checked').length;
                 $.each($('#myTable tbody tr input[type=checkbox]:checked'), function (i) {
                     let id = $(this).closest('tr').data('id');
-                    _publisherService.deleteById(id).done(function () {
+                    _readerService.deleteById(id).done(function () {
                         if (count == i + 1) {
                             abp.notify.success("Đã xóa thành công");
                             setTimeout(function () {

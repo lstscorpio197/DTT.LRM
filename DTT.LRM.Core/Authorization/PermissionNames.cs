@@ -59,6 +59,18 @@
         public const string Pages_Readers_Update = "Pages.Readers.Update";
         public const string Pages_Readers_Delete = "Pages.Readers.Delete";
 
+        public const string Pages_Borrows = "Pages.Borrows";
+        public const string Pages_Borrows_Create = "Pages.Borrows.Create";
+        public const string Pages_Borrows_Update = "Pages.Borrows.Update";
+        public const string Pages_Borrows_Do = "Pages.Borrows.Do";
+        public const string Pages_Borrows_Delete = "Pages.Borrows.Delete";
+
+        public const string Pages_GiveBacks = "Pages.GiveBacks";
+        public const string Pages_GiveBacks_Create = "Pages.GiveBacks.Create";
+
+        public const string Pages_Liquidations = "Pages.Liquidations";
+        public const string Pages_Liquidations_Create = "Pages.Liquidations.Create";
+
         public const string Pages_Systems = "Pages.Systems";
         public const string Pages_Administration = "Pages.Administration";
 

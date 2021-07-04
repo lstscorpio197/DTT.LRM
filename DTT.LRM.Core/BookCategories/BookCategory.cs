@@ -24,6 +24,7 @@ namespace DTT.LRM.BookCategories
         public BookField BookField { get; set; }
         public int BookFieldId { get; set; }
 
+        public int TotalBorrowTime { get; set; }
         public bool Status { get; set; }
     }
 }

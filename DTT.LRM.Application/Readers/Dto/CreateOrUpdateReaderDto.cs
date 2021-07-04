@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DTT.LRM.Readers.Dto
 {
-    [AutoMapFrom(typeof(Reader))]
+    [AutoMapTo(typeof(Reader))]
     public class CreateOrUpdateReaderDto : AuditedEntityDto
     {
         public string Code { get; set; }

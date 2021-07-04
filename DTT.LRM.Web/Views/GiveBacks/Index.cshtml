@@ -1,0 +1,36 @@
+﻿@using Abp.Web.Mvc.Extensions
+@{
+    ViewBag.ActiveMenu = PageNames.GiveBacks; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/GiveBacks/Index.js")
+}
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Danh sách trả sách
+        </h4>
+        <div class="btn btn-primary">
+            <a class="link-default" href="http://localhost:61814/GiveBacks/CreateOrUpdate">Thêm phiếu trả sách</a>
+        </div>
+    </div>
+
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã phiếu trả</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Người tạo</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Độc giả</th>
+                <th scope="col">Ghi chú</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+

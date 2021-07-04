@@ -17,6 +17,10 @@
             },
             BookFieldId: {
                 required: true
+            },
+            TotalBorrowTime: {
+                required: true,
+                min: 1
             }
         },
         messages: {
@@ -32,6 +36,10 @@
             },
             BookFieldId: {
                 required: "Vui lòng chọn lĩnh vực sách"
+            },
+            TotalBorrowTime: {
+                required: "Vui lòng nhập số ngày mượn",
+                min:"Thời gian mượn tối thiểu là 1"
             }
         }
     });

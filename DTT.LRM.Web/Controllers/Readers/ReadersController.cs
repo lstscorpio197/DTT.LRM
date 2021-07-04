@@ -1,9 +1,12 @@
-﻿using Abp.Authorization;
+﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using DTT.LRM.OrganizationUnits;
 using DTT.LRM.Positions;
 using DTT.LRM.Readers;
 using DTT.LRM.Readers.Dto;
 using DTT.LRM.Share;
+using DTT.LRM.Users;
+using DTT.LRM.Users.Dto;
 using DTT.LRM.Web.Models.Readers;
 using System;
 using System.Collections.Generic;
@@ -21,11 +24,13 @@ namespace DTT.LRM.Web.Controllers.Readers
         private readonly IReaderAppService _readerAppService;
         private readonly IPositionAppService _positonAppService;
         private readonly IOrganizationUnitAppService _organizationUnitAppService;
-        public ReadersController(IReaderAppService readerAppService, IPositionAppService positonAppService, IOrganizationUnitAppService organizationUnitAppService)
+        private readonly IUserAppService _userAppService;
+        public ReadersController(IReaderAppService readerAppService, IPositionAppService positonAppService, IOrganizationUnitAppService organizationUnitAppService, IUserAppService userAppService)
         {
             _readerAppService = readerAppService;
             _positonAppService = positonAppService;
             _organizationUnitAppService = organizationUnitAppService;
+            _userAppService = userAppService;
         }
         // GET: Readers
         public ActionResult Index()
@@ -53,15 +58,18 @@ namespace DTT.LRM.Web.Controllers.Readers
         public async Task<ActionResult> CreateOrUpdate(int? readerId)
         {
             var model = new CreateOrUpdateModel();
+            model.Roles = (await _userAppService.GetRoles()).Items;
             if (!readerId.HasValue)
             {
                 model.Reader = new ReaderDto();
+                model.User = new UserDto();
                 model.ListPositions = await _positonAppService.GetAllForSelect();
                 model.ListOrganizationUnits = await _organizationUnitAppService.GetAllForSelect();
             }
             else
             {
                 model.Reader = await _readerAppService.GetById(readerId.Value);
+                model.User = await _userAppService.GetAsync(new EntityDto<long>(model.Reader.UserId));
                 model.ListPositions = await _positonAppService.GetAllForSelect();
                 model.ListOrganizationUnits = await _organizationUnitAppService.GetAllForSelect();
             }
@@ -71,27 +79,48 @@ namespace DTT.LRM.Web.Controllers.Readers
         [HttpPost]
         public async Task<JsonResult> CreateOrUpdate()
         {
-            //var generalInfo = System.Web.HttpContext.Current.Request.Form["generalInfo"];
-            //if (generalInfo != null)
-            //{
-            //    var position = new JavaScriptSerializer().Deserialize<CreateOrUpdatePositionDto>(generalInfo);
-            //    var positionId_Res = await _positionAppService.CreateOrUpdateAsync(position);
-            //    if (positionId_Res > 0)
-            //    {
-            //        var listQuotasResult = System.Web.HttpContext.Current.Request.Form["listQuotas"];
-            //        if (listQuotasResult != null)
-            //        {
-            //            var listQuotas = new JavaScriptSerializer().Deserialize<List<CreateOrUpdatePositionQuotaDto>>(listQuotasResult);
-            //            var qouta_Res = await _positionQuotaAppService.CreateOrUpdateAsync(listQuotas, positionId_Res);
-            //            return Json(qouta_Res);
-            //        }
-            //        else
-            //            return Json(1);
-            //    }
-            //    else
-            //        return Json(0);
-
-            //}
+            var generalInfo = System.Web.HttpContext.Current.Request.Form["generalInfo"];
+            if (generalInfo != null)
+            {
+                var reader = new JavaScriptSerializer().Deserialize<CreateOrUpdateReaderDto>(generalInfo);
+                var userInfo = System.Web.HttpContext.Current.Request.Form["userInfo"];
+                if (userInfo != null)
+                {
+                    var checkCodeRes = await _readerAppService.CodeIsExist(reader.Code, reader.Id);
+                    if (!string.IsNullOrEmpty(checkCodeRes))
+                        return Json(-2);
+                    var checkEmailRes = await _readerAppService.EmailIsExist(reader.Code, reader.Id);
+                    if (!string.IsNullOrEmpty(checkEmailRes))
+                        return Json(-3);
+                    
+                    if (reader.Id > 0)
+                    {
+                        var user = new JavaScriptSerializer().Deserialize<UpdateUserDto>(userInfo);
+                        var checkUserNameRes = await _userAppService.UserNameIsExist(user.UserName, user.Id);
+                        if (!string.IsNullOrEmpty(checkUserNameRes))
+                            return Json(-4);
+                        var userRes = await _userAppService.UpdateAsync(user);
+                        var readerRes = await _readerAppService.CreateOrUpdateAsync(reader);
+                        return Json(readerRes);
+                    }
+                    else
+                    {
+                        var user = new JavaScriptSerializer().Deserialize<CreateUserDto>(userInfo);
+                        var checkUserNameRes = await _userAppService.UserNameIsExist(user.UserName, 0);
+                        if (!string.IsNullOrEmpty(checkUserNameRes))
+                            return Json(-4);
+                        var userRes = await _userAppService.CreateAsync(user);
+                        if (userRes.Id > 0)
+                        {
+                            reader.UserId = userRes.Id;
+                            var readerRes = await _readerAppService.CreateOrUpdateAsync(reader);
+                            return Json(readerRes);
+                        }
+                        return Json(-1);
+                    }
+                }
+                return Json(-1);
+            }
             return Json(-1);
         }
     }

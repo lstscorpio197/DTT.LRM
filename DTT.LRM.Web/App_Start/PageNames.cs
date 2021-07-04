@@ -16,5 +16,8 @@ namespace DTT.LRM.Web
         public const string OrganizationUnits = "OrganizationUnits";
         public const string Readers = "Readers";
         public const string Employees = "Employees";
+        public const string Borrows = "Borrows";
+        public const string GiveBacks = "GiveBacks";
+        public const string Violates = "Violates";
     }
 }

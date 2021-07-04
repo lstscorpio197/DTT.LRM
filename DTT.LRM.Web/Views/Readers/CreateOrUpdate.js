@@ -1,7 +1,10 @@
-﻿let _$form = $('form[name=ReaderForm]')
+﻿let _readerService = abp.services.app.reader;
+let _userService = abp.services.app.user;
+
+let _$form = $('form[name=ReaderForm]');
 
 $(document).on('change', '#confirmpass', function () {
-    alert()
+    
 })
 
 function ToggleTrashButton() {
@@ -95,6 +98,13 @@ $('.submit').on('click', function () {
     }
     let data = GetDataForm();
     let reader = _$form.serializeFormToObject();
+
+    ////let isValid = CheckValid(reader.Code, reader.Email, reader.Id, reader.UserName, reader.UserId);
+    ////console.log(isValid);
+
+    //Promise.all([CheckValid(reader.Code, reader.Email, reader.Id, reader.UserName, reader.UserId)]).then((res) => {
+    //    console.log(res);
+    //})
     $.ajax({
         dataType: "json",
         type: "POST",
@@ -103,29 +113,81 @@ $('.submit').on('click', function () {
         contentType: false,
         processData: false,
         success: function (res) {
-            if (res.result == 0) {
-                abp.notify.warn("Mã nhà xuất bản đã tồn tại");
+            switch (res.result) {
+                case -1:
+                    abp.notify.error("Xảy ra lỗi");
+                    break;
+                case -2:
+                    abp.notify.warn("Mã độc giả đã tồn tại");
+                    break;
+                case -3:
+                    abp.notify.warn("Email đã tồn tại");
+                    break;
+                case -4:
+                    abp.notify.warn("Tài khoản đã tồn tại");
+                    break;
+                default:
+                    if (reader.Id > 0) {
+                        abp.notify.success("Lưu thành công");
+                        setTimeout(function () {
+                            window.location = abp.toAbsAppPath('Readers/Index');
+                        }, 500);
+                    }
+                    else {
+                        abp.notify.success("Thêm mới thành công");
+                        setTimeout(function () {
+                            window.location = abp.toAbsAppPath('Readers/Index');
+                        }, 500);
+                    }
             }
-            else if (res.result == -1) {
-                abp.notify.error("Xảy ra lỗi");
-            }
-            else {
-                if (reader.Id > 0) {
-                    abp.notify.success("Lưu thành công");
-                    setTimeout(function () {
-                        window.location = abp.toAbsAppPath('Readers/Index');
-                    }, 500);
-                }
-                else {
-                    abp.notify.success("Thêm mới thành công");
-                    setTimeout(function () {
-                        window.location = abp.toAbsAppPath('Readers/Index');
-                    }, 500);
-                }
-            }
+
+            //if (res.result == 0) {
+            //    abp.notify.warn("Mã độc giả đã tồn tại");
+            //}
+            //else if (res.result == -1) {
+            //    abp.notify.error("Xảy ra lỗi");
+            //}
+            //else {
+            //    if (reader.Id > 0) {
+            //        abp.notify.success("Lưu thành công");
+            //        setTimeout(function () {
+            //            window.location = abp.toAbsAppPath('Readers/Index');
+            //        }, 500);
+            //    }
+            //    else {
+            //        abp.notify.success("Thêm mới thành công");
+            //        setTimeout(function () {
+            //            window.location = abp.toAbsAppPath('Readers/Index');
+            //        }, 500);
+            //    }
+            //}
         }
     });
 })
+
+function CheckValid(code, email, readerId, userName, userId) {
+    _readerService.codeIsExist(code, readerId).done(function (data) {
+        if (data.length > 0) {
+            isValid = false;
+            abp.notify.warn(data);
+            return -1;
+        }
+    });
+    _readerService.emailIsExist(email, readerId).done(function (data) {
+        if (data.length > 0) {
+            isValid = false;
+            abp.notify.warn(data);
+            return -1;
+        }
+    })
+    _userService.userNameIsExist(userName, userId).done(function (data) {
+        if (data.length > 0) {
+            isValid = false;
+            abp.notify.warn(data);
+            return -1;
+        }
+    })
+}
 
 function GetDataForm() {
     let data = new FormData();
@@ -151,7 +213,21 @@ function GetDataForm() {
     userInfo.id = reader.UserId;
     userInfo.userName = reader.UserName;
     userInfo.password = reader.Password;
-    userInfo.email = reader.Email;
-    data.append("userInfo", JSON.stringify(generalInfo));
+    userInfo.emailAddress = reader.Email;
+    userInfo.name = reader.Name;
+    userInfo.surname = reader.Name;
+    userInfo.isActive = true;
+
+    userInfo.roleNames = [];
+    var _$roleCheckboxes = $("input[name='role']:checked");
+    if (_$roleCheckboxes) {
+        for (var roleIndex = 0; roleIndex < _$roleCheckboxes.length; roleIndex++) {
+            var _$roleCheckbox = $(_$roleCheckboxes[roleIndex]);
+            userInfo.roleNames.push(_$roleCheckbox.attr('data-role-name'));
+        }
+    }
+
+    data.append("userInfo", JSON.stringify(userInfo));
+
     return data;
 }

@@ -16,5 +16,7 @@ namespace DTT.LRM.Books
         Task<int> CreateOrUpdateAsync(CreateOrUpdateBookDto input);
         Task<BookDto> GetById(int id);
         Task DeleteById(int id);
+        Task<List<BookDto>> GetListBookForBorrow(AdvanceSearchBookDto input);
+        Task<int> UpdateBookStatus(List<int> listBookIds, int status);
     }
 }

@@ -1,0 +1,242 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@model DTT.LRM.Web.Models.Employees.CreateOrUpdateModel
+@{
+    ViewBag.ActiveMenu = PageNames.Employees; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Employees/CreateOrUpdate.js")
+}
+<div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
+    <h4>
+        <a href="http://localhost:61814/Employees/" class="mr-2">
+            <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 288.312 288.312" style="enable-background:new 0 0 288.312 288.312;" xml:space="preserve">
+            <g>
+            <path id="Subdirectory_Arrow_Up_Left" d="M127.353,3.555c-4.704-4.74-12.319-4.74-17.011,0L15.314,99.653
+		                    c-4.74,4.788-4.547,12.884,0.313,17.48l94.715,95.785c4.704,4.74,12.319,4.74,17.011,0c4.704-4.74,4.704-12.427,0-17.167
+		                    l-74.444-75.274h199.474v155.804c0,6.641,5.39,12.03,12.03,12.03c6.641,0,12.03-5.39,12.03-12.03V108.231
+		                    c0-6.641-5.39-12.03-12.03-12.03H52.704l74.648-75.49C132.056,15.982,132.056,8.295,127.353,3.555z" />
+                    </g>
+                </svg>
+        </a>
+        Danh mục nhân viên
+    </h4>
+    <button class="btn btn-primary d-flex align-items-center submit" type="button">
+        <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+        Lưu
+    </button>
+</div>
+<form name="EmployeeForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    <ul class="nav nav-tabs tab-nav-right mb-3" role="tablist">
+        <li role="presentation" class="nav-item">
+            <a href="#edit-user-details" data-toggle="tab">Thông tin nhân viên / tài khoản</a>
+        </li>
+        <li role="presentation">
+            <a href="#edit-user-roles" data-toggle="tab">Nhóm quyền</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" value="@Model.Employee.Id" />
+            <div class="row clearfix" style="margin-top:10px; margin-bottom:10px;">
+                <div class="col-sm-12">
+                    <span style="font-weight:bold">Thông tin nhân viên:</span>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:20px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="code" type="text" name="Code" value="@Model.Employee.Code" class="validate form-control">
+                            <label for="code" class="form-label">Mã nhân viên</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="name" type="text" name="Name" value="@Model.Employee.Name" class="validate form-control">
+                            <label for="name" class="form-label">Tên nhân viên</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <select class="w-100 selectpicker show-tick" data-live-search="true" name="OrganizationUnitId">
+                                <option value="">-- Chọn phòng ban --</option>
+                                @foreach (var item in Model.ListOrganizationUnits)
+                                {
+                                    <option value="@item.Id" @(item.Id == Model.Employee.OrganizationUnitId ? "selected" : "")>@item.DisplayName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <select class="selectpicker show-tick" data-live-search="true" name="PositionId">
+                                <option value="">-- Chọn chức vụ --</option>
+                                @foreach (var item in Model.ListPositions)
+                                {
+                                    <option value="@item.Id" @(item.Id == Model.Employee.PositionId ? "selected" : "")>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <input id="dayofbirth" type="date" name="DayOfBirth" value="@Model.Employee.DayOfBirth.ToString("yyyy-MM-dd")" class="validate form-control">
+                            <label for="dayofbirth" class="form-label">Ngày sinh</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Gender" id="flexRadioDefault1" value="0" @(0 == Model.Employee.Gender ? "checked" : "")>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Nam
+                                </label>
+                                <input class="form-check-input" type="radio" name="Gender" id="flexRadioDefault2" value="1" @(1 == Model.Employee.Gender ? "checked" : "")>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Nữ
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="email" type="text" name="Email" value="@Model.Employee.Email" class="validate form-control">
+                            <label for="email" class="form-label">Địa chỉ email</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="phonenumber" type="text" name="PhoneNumber" value="@Model.Employee.PhoneNumber" class="validate form-control">
+                            <label for="phonenumber" class="form-label">Số điện thoại</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="address" type="text" name="Address" value="@Model.Employee.Address" class="validate form-control">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="note" type="text" name="Note" value="@Model.Employee.Note" class="validate form-control">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="">
+                            <input id="status" type="checkbox" name="Status" value="true" @((Model.Employee.Status || Model.Employee.Id == 0) ? "checked" : "") class="form-control" />
+                            <label for="status" class="form-label">Đang sử dụng</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--UserInfo-->
+            <div class="row clearfix" style="margin-top:20px; margin-bottom:10px;">
+                <input type="hidden" name="UserId" value="@Model.Employee.UserId" />
+                <div class="col-sm-12">
+                    <span style="font-weight:bold">Thông tin tài khoản:</span>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <input id="username" type="text" name="UserName" value="@(string.IsNullOrEmpty(Model.User.UserName)?"":Model.User.UserName)" @(Model.Employee.Id > 0 ? "readonly" : "") class="validate form-control">
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <input id="password" type="password" name="Password" value="@(string.IsNullOrEmpty(Model.User.Password)?"":Model.User.Password.Substring(0,15))" @(Model.Employee.Id > 0 ? "readonly" : "") class="validate form-control">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Employee.Id == 0)
+            {
+                <div class="row clearfix" style="margin-top:10px;">
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="">
+                                <input id="usedefaultpass" type="checkbox" name="UserDefaultPass" class="form-control" />
+                                <label for="usedefaultpass" class="form-label">Sử dụng mật khẩu mặc định</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input id="confirmpass" type="password" name="ConfirmPassword" value="" class="validate form-control">
+                                <label for="confirmpass" class="form-label">Xác nhận mật khẩu</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">
+            <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        @foreach (var role in Model.Roles)
+                        {
+                            <div class="col-sm-6">
+                                <input type="checkbox" name="role" data-role-name="@role.Name" title="@role.Description" class="filled-in" id="@string.Format("role{0}",role.Id)" @(Model.UserIsInRole(role) ? "checked" : "") />
+                                <label for="@string.Format("role{0}",role.Id)" title="@role.DisplayName">@role.Name</label>
+                            </div>}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

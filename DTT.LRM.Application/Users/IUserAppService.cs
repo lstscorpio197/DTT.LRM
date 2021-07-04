@@ -9,5 +9,6 @@ namespace DTT.LRM.Users
     public interface IUserAppService : IAsyncCrudAppService<UserDto, long, PagedResultRequestDto, CreateUserDto, UpdateUserDto>
     {
         Task<ListResultDto<RoleDto>> GetRoles();
+        Task<string> UserNameIsExist(string userName, long id);
     }
 }
