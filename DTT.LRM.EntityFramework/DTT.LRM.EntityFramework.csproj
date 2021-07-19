@@ -329,6 +329,22 @@
     <Compile Include="Migrations\202107040630105_Edit-BookReaderUsingEntity.designer.cs">
       <DependentUpon>202107040630105_Edit-BookReaderUsingEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107181731401_Edit_BookLiquidationEntity.cs" />
+    <Compile Include="Migrations\202107181731401_Edit_BookLiquidationEntity.designer.cs">
+      <DependentUpon>202107181731401_Edit_BookLiquidationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107181743400_Edit_LiquidationEntity.cs" />
+    <Compile Include="Migrations\202107181743400_Edit_LiquidationEntity.designer.cs">
+      <DependentUpon>202107181743400_Edit_LiquidationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107191338367_Edit_BookLiquidationInfo.cs" />
+    <Compile Include="Migrations\202107191338367_Edit_BookLiquidationInfo.designer.cs">
+      <DependentUpon>202107191338367_Edit_BookLiquidationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107191343352_Edit_BookLiquidationInfoV2.cs" />
+    <Compile Include="Migrations\202107191343352_Edit_BookLiquidationInfoV2.designer.cs">
+      <DependentUpon>202107191343352_Edit_BookLiquidationInfoV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
@@ -422,6 +438,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107040630105_Edit-BookReaderUsingEntity.resx">
       <DependentUpon>202107040630105_Edit-BookReaderUsingEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107181731401_Edit_BookLiquidationEntity.resx">
+      <DependentUpon>202107181731401_Edit_BookLiquidationEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107181743400_Edit_LiquidationEntity.resx">
+      <DependentUpon>202107181743400_Edit_LiquidationEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107191338367_Edit_BookLiquidationInfo.resx">
+      <DependentUpon>202107191338367_Edit_BookLiquidationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107191343352_Edit_BookLiquidationInfoV2.resx">
+      <DependentUpon>202107191343352_Edit_BookLiquidationInfoV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

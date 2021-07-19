@@ -1,5 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Authorization;
+using Abp.Web.Mvc.Authorization;
+using DTT.LRM.Authorization;
 using DTT.LRM.BookBorrows;
 using DTT.LRM.BookBorrows.Dto;
 using DTT.LRM.BookCategories;
@@ -45,6 +47,7 @@ namespace DTT.LRM.Web.Controllers.Borrows
             _bookReaderUsingAppService = bookReaderUsingAppService;
         }
         // GET: Borrows
+        [AbpAuthorize(PermissionNames.Pages_Borrows)]
         public ActionResult Index()
         {
             return View();

@@ -19,5 +19,10 @@ namespace DTT.LRM.Web
         public const string Borrows = "Borrows";
         public const string GiveBacks = "GiveBacks";
         public const string Violates = "Violates";
+        public const string SearchInfos = "SearchInfos";
+        public const string MyBooks = "MyBooks";
+        public const string Statistics = "Statistics";
+        public const string Liquidations = "Liquidations";
+        public const string UserList = "UserList";
     }
 }

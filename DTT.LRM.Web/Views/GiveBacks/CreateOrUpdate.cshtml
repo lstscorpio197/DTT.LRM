@@ -275,11 +275,19 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
-                                        <div class="form-line">
-                                            <select class="form-control" data-width="100%" data-size="4" width="auto" name="VialateError">
-                                                <option value="@(LRMEnum.BookStatus.UnUsed)">Quá hạn</option>
-                                                <option value="@(LRMEnum.BookStatus.Lost)">Làm mất</option>
-                                            </select>
+                                        <div class="form-line focused">
+                                            @if (Model.GiveBack.Id == 0)
+                                            {
+                                                <select class="form-control" data-width="100%" data-size="4" width="auto" name="ViolateError">
+                                                    <option value="0">Quá hạn</option>
+                                                    <option value="-1">Làm mất</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <input type="text" name="ViolateError" class="form-control">
+                                                <label class="form-label">Lỗi vi phạm</label>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +295,7 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group form-float">
-                                        <div class="form-line">
+                                        <div class="form-line focused">
                                             <input type="text" name="Money" class="form-control">
                                             <label class="form-label">Tiền phạt</label>
                                         </div>

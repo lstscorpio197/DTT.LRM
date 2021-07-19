@@ -1,0 +1,10 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@{
+    ViewBag.ActiveMenu = PageNames.Statistics; //The menu item will be active for this page.
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Statistics/Index.js")
+}

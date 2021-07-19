@@ -246,6 +246,10 @@
     <Compile Include="BookGiveBacks\Dto\BookGiveBackDto.cs" />
     <Compile Include="BookGiveBacks\Dto\CreateOrUpdateBookGiveBackDto.cs" />
     <Compile Include="BookGiveBacks\IBookGiveBackAppService.cs" />
+    <Compile Include="BookLiquidations\BookLiquidationAppService.cs" />
+    <Compile Include="BookLiquidations\Dto\BookLiquidationDto.cs" />
+    <Compile Include="BookLiquidations\Dto\CreateBookLiquidationDto.cs" />
+    <Compile Include="BookLiquidations\IBookLiquidationAppService.cs" />
     <Compile Include="BookReaderUsings\BookReaderUsingAppService.cs" />
     <Compile Include="BookReaderUsings\Dto\BookReaderUsingDto.cs" />
     <Compile Include="BookReaderUsings\Dto\CreateOrUpdateBookReaderUsingDto.cs" />
@@ -266,6 +270,10 @@
     <Compile Include="GiveBacks\Dto\GiveBackDto.cs" />
     <Compile Include="GiveBacks\GiveBackAppService.cs" />
     <Compile Include="GiveBacks\IGiveBackAppService.cs" />
+    <Compile Include="Liquidations\Dto\CreateLiquidationDto.cs" />
+    <Compile Include="Liquidations\Dto\LiquidationDto.cs" />
+    <Compile Include="Liquidations\ILiquidationAppService.cs" />
+    <Compile Include="Liquidations\LiquidationAppService.cs" />
     <Compile Include="LRMApplicationModule.cs" />
     <Compile Include="LRMAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />
@@ -286,6 +294,9 @@
     <Compile Include="MultiTenancy\Dto\TenantDto.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
+    <Compile Include="MyBooks\Dto\MyBookDto.cs" />
+    <Compile Include="MyBooks\IMyBookAppService.cs" />
+    <Compile Include="MyBooks\MyBookAppService.cs" />
     <Compile Include="OrganizationUnits\Dto\CreateOrUpdateOrganizationUnitDto.cs" />
     <Compile Include="OrganizationUnits\Dto\OrganizationUnitBasicDto.cs" />
     <Compile Include="OrganizationUnits\Dto\OrganizationUnitDto.cs" />
@@ -312,6 +323,9 @@
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
     <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="SearchInfos\Dto\SearchInfoDto.cs" />
+    <Compile Include="SearchInfos\ISearchInfoAppService.cs" />
+    <Compile Include="SearchInfos\SearchInfoAppService.cs" />
     <Compile Include="Share\AdvanceSearchBookDto.cs" />
     <Compile Include="Share\CountStatus.cs" />
     <Compile Include="Share\PagedResultExtendDto.cs" />
@@ -319,6 +333,7 @@
     <Compile Include="Users\Dto\CreateUserDto.cs" />
     <Compile Include="Users\Dto\UpdateUserDto.cs" />
     <Compile Include="Users\Dto\UserDto.cs" />
+    <Compile Include="Users\Dto\UserIndexDto.cs" />
     <Compile Include="Users\IUserAppService.cs" />
     <Compile Include="Roles\RoleAppService.cs" />
     <Compile Include="Sessions\Dto\GetCurrentLoginInformationsOutput.cs" />

@@ -1,0 +1,35 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@{
+    ViewBag.ActiveMenu = PageNames.MyBooks; //The menu item will be active for this page.
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/MyBooks/Index.js")
+}
+
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Danh sách mượn - trả của bạn
+        </h4>
+    </div>
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã sách</th>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Ngày mượn</th>
+                <th scope="col">Ngày trả dự kiến</th>
+                <th scope="col">Ngày trả</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+

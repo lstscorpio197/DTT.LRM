@@ -120,5 +120,27 @@ namespace DTT.LRM.Books
                 return 0;
             }
         }
+
+        public async Task<int> UpdateBookStatusLiquidation(int bookCategotyId, string author, int releaseYear, int publisherId)
+        {
+            try
+            {
+                var listBook = _bookRepository.GetAll().Where(x => x.Status == (int)LRMEnum.BookStatus.UnUsed &&
+                                                                x.BookCategoryId == bookCategotyId &&
+                                                                (string.IsNullOrEmpty(author) ? true : x.Author.ToLower().Contains(author.ToLower())) &&
+                                                                (releaseYear > 0 ? x.ReleaseYear == releaseYear : true) &&
+                                                                (publisherId > 0 ? x.PublisherId == publisherId : true)).ToList();
+                foreach (Book book in listBook)
+                {
+                    book.Status = (int)LRMEnum.BookStatus.Liquidated;
+                    await _bookRepository.UpdateAsync(book);
+                }
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

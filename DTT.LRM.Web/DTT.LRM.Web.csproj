@@ -2747,6 +2747,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Views\Account\ChangePassword.js" />
     <Content Include="Views\Account\Login.css">
       <DependentUpon>Login.less</DependentUpon>
     </Content>
@@ -2781,6 +2782,9 @@
     <Content Include="Views\GiveBacks\CreateOrUpdate.js" />
     <Content Include="Views\GiveBacks\Index.js" />
     <Content Include="Views\Home\Index.js" />
+    <Content Include="Views\Liquidations\CreateOrUpdate.js" />
+    <Content Include="Views\Liquidations\Index.js" />
+    <Content Include="Views\MyBooks\Index.js" />
     <Content Include="Views\OrganizationUnits\CreateOrUpdate.js" />
     <Content Include="Views\OrganizationUnits\Index.js" />
     <Content Include="Views\Positions\CreateOrUpdate.js" />
@@ -2792,10 +2796,13 @@
     <Content Include="Views\Roles\CreateOrUpdate.js" />
     <Content Include="Views\Roles\Index.js" />
     <Content Include="Views\Roles\_EditRoleModal.js" />
+    <Content Include="Views\SearchInfos\Index.js" />
     <Content Include="Views\Shared\_Layout.css" />
     <Content Include="Views\Shared\_Layout.js" />
+    <Content Include="Views\Statistics\Index.js" />
     <Content Include="Views\Tenants\Index.js" />
     <Content Include="Views\Tenants\_EditTenantModal.js" />
+    <Content Include="Views\UserList\Index.js" />
     <Content Include="Views\Users\Index.js" />
     <Content Include="Views\Users\_EditUserModal.js" />
     <Content Include="Web.config">
@@ -2823,13 +2830,17 @@
     <Compile Include="Controllers\GiveBacks\GiveBacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Liquidations\LiquidationsController.cs" />
+    <Compile Include="Controllers\MyBooks\MyBooksController.cs" />
     <Compile Include="Controllers\OrganizationUnits\OrganizationUnitsController.cs" />
     <Compile Include="Controllers\Positions\PositionsController.cs" />
     <Compile Include="Controllers\Publishers\PublishersController.cs" />
     <Compile Include="Controllers\Readers\ReadersController.cs" />
     <Compile Include="Controllers\Results\ChallengeResult.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SearchInfos\SearchInfosController.cs" />
+    <Compile Include="Controllers\Statistics\StatisticsController.cs" />
     <Compile Include="Controllers\TenantsController.cs" />
+    <Compile Include="Controllers\UserList\UserListController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\Violates\ViolatesController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
@@ -2858,6 +2869,7 @@
     </Compile>
     <Compile Include="Models\Layout\SideBarNavViewModel.cs" />
     <Compile Include="Models\Layout\SideBarUserAreaViewModel.cs" />
+    <Compile Include="Models\Liquidations\CreateOrUpdateModel.cs" />
     <Compile Include="Models\OrganizationUnits\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Positions\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Publishers\CreateOrUpdateModel.cs" />
@@ -3013,6 +3025,13 @@
     <Content Include="Views\Borrows\CreateOrUpdate.cshtml" />
     <Content Include="Views\GiveBacks\Index.cshtml" />
     <Content Include="Views\GiveBacks\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\SearchInfos\Index.cshtml" />
+    <Content Include="Views\MyBooks\Index.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Liquidations\Index.cshtml" />
+    <Content Include="Views\Liquidations\CreateOrUpdate.cshtml" />
+    <Content Include="Views\UserList\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3040,7 +3059,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Liquidations\" />
     <Folder Include="Views\Violates\" />
   </ItemGroup>
   <ItemGroup>

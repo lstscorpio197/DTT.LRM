@@ -12,5 +12,6 @@ namespace DTT.LRM.Share
         public string Keyword { get; set; }
         public int Start { get; set; }
         public int Length { get; set; }
+        public int? Status { get; set; }
     }
 }

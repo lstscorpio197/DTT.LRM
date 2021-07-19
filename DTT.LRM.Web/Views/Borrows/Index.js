@@ -42,12 +42,12 @@ $(document).ready(function () {
 
         },
         columns: [
-            {
-                "data": "id", className: "btn-checkbox", render: function (text, display, data) {
-                    return `<input id="status-${text}" type="checkbox" name="Status" value="${text}" class="form-control" />
-                            <label for="status-${text}"></label>`;
-                }
-            },
+            //{
+            //    "data": "id", className: "btn-checkbox", render: function (text, display, data) {
+            //        return `<input id="status-${text}" type="checkbox" name="Status" value="${text}" class="form-control" />
+            //                <label for="status-${text}"></label>`;
+            //    }
+            //},
             {
                 "data": null, className: "", render: function (text, display, data) {
                     return `<span>${startIndex++}</span>`;
@@ -79,7 +79,7 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "status", className: "", render: function (text, display, data) {
+                "data": "statusText", className: "", render: function (text, display, data) {
                     return `<span>${text}</span>`;
                 }
             },
@@ -98,13 +98,13 @@ $(document).ready(function () {
 
 $('.btn-trash').on('click', function () {
     abp.message.confirm(
-        "Bạn có chắc muốn xóa các chức vụ đã chọn?", "Xóa?",
+        "Bạn có chắc muốn xóa các phiếu đã chọn?", "Xóa?",
         function (isConfirmed) {
             if (isConfirmed) {
                 let count = $('#myTable tbody tr input[type=checkbox]:checked').length;
                 $.each($('#myTable tbody tr input[type=checkbox]:checked'), function (i) {
                     let id = $(this).closest('tr').data('id');
-                    _positionService.deleteById(id).done(function () {
+                    _borrowService.deleteById(id).done(function () {
                         if (count == i + 1) {
                             abp.notify.success("Đã xóa thành công");
                             setTimeout(function () {

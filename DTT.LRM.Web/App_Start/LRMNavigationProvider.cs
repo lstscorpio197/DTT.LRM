@@ -25,6 +25,24 @@ namespace DTT.LRM.Web
                         requiresAuthentication: true
                     )
                 )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.SearchInfos,
+                        L("SearchInfos"),
+                        url: "SearchInfos",
+                        icon: "search",
+                        requiresAuthentication: true
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.MyBooks,
+                        L("MyBooks"),
+                        url: "MyBooks",
+                        icon: "book",
+                        requiresAuthentication: true
+                    )
+                )
                 .AddItem( //Menu items below is just for demonstration!
                     new MenuItemDefinition(
                         "BookUsing",
@@ -52,16 +70,16 @@ namespace DTT.LRM.Web
                         )
                     )
                 )
-                //.AddItem(
-                //    new MenuItemDefinition(
-                //        PageNames.Books,
-                //        L("Liquidations"),
-                //        url: "Liquidations",
-                //        icon: "book",
-                //        requiresAuthentication: true,
-                //        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Liquidations)
-                //    )
-                //)
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.Liquidations,
+                        L("Liquidations"),
+                        url: "Liquidations",
+                        icon: "book",
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Liquidations)
+                    )
+                )
                 .AddItem(
                     new MenuItemDefinition(
                         PageNames.Books,
@@ -90,6 +108,16 @@ namespace DTT.LRM.Web
                         icon: "people",
                         requiresAuthentication: true,
                         permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Employees)
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.Statistics,
+                        L("Statistics"),
+                        url: "Statistics",
+                        icon: "menu",
+                        requiresAuthentication: true
+                        //permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Employees)
                     )
                 )
                 .AddItem( //Menu items below is just for demonstration!

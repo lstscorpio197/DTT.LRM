@@ -98,13 +98,6 @@ $('.submit').on('click', function () {
     }
     let data = GetDataForm();
     let reader = _$form.serializeFormToObject();
-
-    ////let isValid = CheckValid(reader.Code, reader.Email, reader.Id, reader.UserName, reader.UserId);
-    ////console.log(isValid);
-
-    //Promise.all([CheckValid(reader.Code, reader.Email, reader.Id, reader.UserName, reader.UserId)]).then((res) => {
-    //    console.log(res);
-    //})
     $.ajax({
         dataType: "json",
         type: "POST",
@@ -140,27 +133,6 @@ $('.submit').on('click', function () {
                         }, 500);
                     }
             }
-
-            //if (res.result == 0) {
-            //    abp.notify.warn("Mã độc giả đã tồn tại");
-            //}
-            //else if (res.result == -1) {
-            //    abp.notify.error("Xảy ra lỗi");
-            //}
-            //else {
-            //    if (reader.Id > 0) {
-            //        abp.notify.success("Lưu thành công");
-            //        setTimeout(function () {
-            //            window.location = abp.toAbsAppPath('Readers/Index');
-            //        }, 500);
-            //    }
-            //    else {
-            //        abp.notify.success("Thêm mới thành công");
-            //        setTimeout(function () {
-            //            window.location = abp.toAbsAppPath('Readers/Index');
-            //        }, 500);
-            //    }
-            //}
         }
     });
 })

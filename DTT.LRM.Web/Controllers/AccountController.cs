@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Abp.Auditing;
 using Abp.Authorization;
 using Abp.Authorization.Users;
@@ -560,5 +561,60 @@ namespace DTT.LRM.Web.Controllers
         }
 
         #endregion
+
+        [AbpAuthorize]
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangePasswordAsync()
+        {
+            try
+            {
+                var loginInfo = await _sessionAppService.GetCurrentLoginInformations();
+                var userName = loginInfo.User.UserName;
+                var userId = loginInfo.User.Id;
+                var dataResult = System.Web.HttpContext.Current.Request.Form["data"];
+                var data = new JavaScriptSerializer().Deserialize<RequestParam>(dataResult);
+                var loginResult = await _logInManager.LoginAsync(userName, data.oldPassword, null);
+                if (loginResult.Result == AbpLoginResultType.Success)
+                {
+                    var user = await _userManager.GetUserByIdAsync(userId);
+                    user.Password = new PasswordHasher().HashPassword(data.newPassword);
+                    await _userManager.UpdateAsync(user);
+                    return Json(1);
+                }
+                return Json(0);
+            }
+            catch (Exception)
+            {
+                return Json(-1);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ResetPassword(long userId)
+        {
+            try
+            {
+                var user = await _userManager.GetUserByIdAsync(userId);
+                user.Password = new PasswordHasher().HashPassword("123qwe");
+                await _userManager.UpdateAsync(user);
+                return Json(1);
+            }
+            catch (Exception)
+            {
+                return Json(0);
+            }
+        }
+    }
+
+    public class RequestParam
+    {
+        public string oldPassword { get; set; }
+        public string newPassword { get; set; }
     }
 }

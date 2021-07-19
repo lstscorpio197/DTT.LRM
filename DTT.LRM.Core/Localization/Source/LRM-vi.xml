@@ -76,6 +76,9 @@
     <text name="Liquidations" value="Thanh lý sách" />
     <text name="Violates" value="Lỗi vi phạm" />
     <text name="BookUsing" value="Mượn - trả sách" />
+    <text name="Statistics" value="Thống kê" />
+    <text name="MyBooks" value="Danh sách của bạn" />
+    <text name="SearchInfos" value="Tra cứu thông tin" />
     
     <!--Permisstion-->
     <text name="View" value="Xem" />

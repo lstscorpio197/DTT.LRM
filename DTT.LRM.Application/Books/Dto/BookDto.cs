@@ -37,6 +37,8 @@ namespace DTT.LRM.Books.Dto
                     return "Đang được mượn";
                 if (Status == (int)LRMEnum.BookStatus.Lost)
                     return "Đã bị mất";
+                if (Status == (int)LRMEnum.BookStatus.Liquidated)
+                    return "Đã thanh lý";
                 return string.Empty;
             }
         }

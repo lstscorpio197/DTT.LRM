@@ -76,5 +76,13 @@ namespace DTT.LRM.Readers
             var listReaders = await _readerRepository.GetAllListAsync(x=>x.Status == true);
             return ObjectMapper.Map<List<ReaderDto>>(listReaders);
         }
+
+        public async Task<int> GetReaderIdByUserId(long userId)
+        {
+            var reader = await _readerRepository.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (reader == null)
+                return 0;
+            return reader.Id;
+        }
     }
 }

@@ -1,8 +1,10 @@
 ﻿let _bookReaderUsingService = abp.services.app.bookReaderUsing;
+let _violateService = abp.services.app.violate;
 let _$form = $('form[name=GiveBackForm]');
 let _$violateForm = $('form[name=ViolateForm]');
 let _$modal = $('#ViolateModal');
 
+let giveBackId = (_$form.find('[name=Id]').val() || 0);
 
 let dataSend = new Array();
 
@@ -140,6 +142,7 @@ $(document).on('change', 'select[name=BookId]', function () {
 })
 
 $(document).on('click', '.btnPhieuViPham', function () {
+    let violateId = ($(this).data('violateid') || 0)
     let $row = $(this).closest('tr');
     let readerId = _$form.find('select[name=ReaderId]').val();
     let readerName = _$form.find('select[name=ReaderId]').find('option:selected').data('name');
@@ -170,6 +173,16 @@ $(document).on('click', '.btnPhieuViPham', function () {
             _$modal.modal('hide');
         }
     })
+
+    if (giveBackId > 0 && violateId > 0) {
+        _violateService.getById(violateId).done(function (data) {
+            _$modal.find('[name=ReaderName]').val(data.reader.name);
+            _$modal.find('[name=BookCode]').val(data.book.code);
+            _$modal.find('[name=Money]').val(data.money);
+            let violateError = (data.violateError == 0 ? 'Trả muộn' : 'Làm mất');
+            _$modal.find('[name=ViolateError]').val(violateError);
+        })
+    }
 })
 
 

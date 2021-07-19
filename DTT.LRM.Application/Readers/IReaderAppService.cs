@@ -19,5 +19,6 @@ namespace DTT.LRM.Readers
         Task<string> CodeIsExist(string code, int id);
         Task<string> EmailIsExist(string email, int id);
         Task<List<ReaderDto>> GetAllForSelect();
+        Task<int> GetReaderIdByUserId(long userId);
     }
 }

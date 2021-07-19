@@ -198,29 +198,6 @@
                     </div>
                 </div>
             </div>
-
-            @if (Model.Reader.Id == 0)
-            {
-                <div class="row clearfix" style="margin-top:10px;">
-                    <div class="col-sm-6">
-                        <div class="form-group form-float">
-                            <div class="">
-                                <input id="usedefaultpass" type="checkbox" name="UserDefaultPass" class="form-control" />
-                                <label for="usedefaultpass" class="form-label">Sử dụng mật khẩu mặc định</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input id="confirmpass" type="password" name="ConfirmPassword" value="" class="validate form-control">
-                                <label for="confirmpass" class="form-label">Xác nhận mật khẩu</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-
         </div>
 
         <div role="tabpanel" class="tab-pane animated fadeIn" id="edit-user-roles">

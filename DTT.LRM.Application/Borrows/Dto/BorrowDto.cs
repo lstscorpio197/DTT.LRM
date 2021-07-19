@@ -25,5 +25,17 @@ namespace DTT.LRM.Borrows.Dto
         public int Status { get; set; }
         public string ReaderName => Reader.Name;
         public string BorrowDateText => BorrowDate.ToString("dd/MM/yyyy");
+
+        public string StatusText
+        {
+            get
+            {
+                if (Status == 0)
+                    return "Chờ thực hiện";
+                if (Status == 1)
+                    return "Đã thực hiện";
+                return string.Empty;
+            }
+        }
     }
 }

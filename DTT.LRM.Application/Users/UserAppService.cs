@@ -12,8 +12,11 @@ using DTT.LRM.Authorization;
 using DTT.LRM.Authorization.Roles;
 using DTT.LRM.Authorization.Users;
 using DTT.LRM.Roles.Dto;
+using DTT.LRM.Share;
 using DTT.LRM.Users.Dto;
 using Microsoft.AspNet.Identity;
+using System.Linq.Dynamic.Core;
+using Abp.Linq.Extensions;
 
 namespace DTT.LRM.Users
 {
@@ -22,17 +25,20 @@ namespace DTT.LRM.Users
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
+        private readonly IRepository<User,long> _userRepository;
 
         public UserAppService(
             IRepository<User, long> repository,
             UserManager userManager,
             IRepository<Role> roleRepository,
+            IRepository<User, long> userRepository,
             RoleManager roleManager)
             : base(repository)
         {
             _userManager = userManager;
             _roleRepository = roleRepository;
             _roleManager = roleManager;
+            _userRepository = userRepository;
         }
 
         public override async Task<UserDto> GetAsync(EntityDto<long> input)
@@ -136,6 +142,30 @@ namespace DTT.LRM.Users
             if (user != null && user.Id != id)
                 return "Tài khoản đã tồn tại.";
             return string.Empty;
+        }
+
+        public async Task<PagedResultExtendDto<UserIndexDto>> GetAll(PagedResultRequestExtendDto input)
+        {
+            var keyword = string.IsNullOrEmpty(input.Keyword) ? string.Empty : input.Keyword.ToLower();
+            var status = input.Status;
+            var listUser = _userRepository.GetAll().Where(x=>x.Id > 1 &&
+                                                            (x.UserName.ToLower().Contains(keyword)||
+                                                            x.Surname.ToLower().Contains(keyword)||
+                                                            x.EmailAddress.ToLower().Contains(keyword)||
+                                                            (status == null ? true : (status==0 ? x.IsActive == false : x.IsActive == true))));
+            var items = listUser.OrderBy("id DESC").PageBy(input).ToList();
+            var listItems = ObjectMapper.Map<List<UserIndexDto>>(items);
+            return new PagedResultExtendDto<UserIndexDto>(totalCount: listUser.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<int> ActiveToggle(long userId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+            if (user == null)
+                return 0;
+            user.IsActive = user.IsActive == true ? false : true;
+            await _userRepository.UpdateAsync(user);
+            return 1;
         }
     }
 }

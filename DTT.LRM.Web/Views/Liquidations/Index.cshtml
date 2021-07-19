@@ -1,0 +1,33 @@
+﻿@using Abp.Web.Mvc.Extensions
+@{
+    ViewBag.ActiveMenu = PageNames.Liquidations; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Liquidations/Index.js")
+}
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Danh sách thanh lý
+        </h4>
+        <div class="btn btn-primary">
+            <a class="link-default" href="http://localhost:61814/Liquidations/CreateOrUpdate">Thêm phiếu thanh lý</a>
+        </div>
+    </div>
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã phiếu thanh lý</th>
+                <th scope="col">Người tạo</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Mô tả</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
