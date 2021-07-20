@@ -38,7 +38,7 @@ namespace DTT.LRM.Web.Controllers.Readers
             return View();
         }
 
-        public async Task<JsonResult> GetDataTable(string keyword)
+        public async Task<JsonResult> GetDataTable(string keyword = "")
         {
             int start = Convert.ToInt32(Request["start"]);
             var filter = new PagedResultRequestExtendDto

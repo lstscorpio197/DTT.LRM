@@ -39,7 +39,10 @@ namespace DTT.LRM.Liquidations
 
         public async Task<PagedResultExtendDto<LiquidationDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listLiquidations = _liquidationRepository.GetAll();
+            var keyword = input.Keyword.ToLower();
+            var listLiquidations = _liquidationRepository.GetAll().Where(x=>x.Code.Contains(keyword)||
+                                                                            x.Creator.ToLower().Contains(keyword)||
+                                                                            x.Description.ToLower().Contains(keyword));
             var items = listLiquidations.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<LiquidationDto>>(items);
             return new PagedResultExtendDto<LiquidationDto>(totalCount: listLiquidations.Count(), items: listItems, countStatus: null);

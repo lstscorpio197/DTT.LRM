@@ -34,7 +34,10 @@ namespace DTT.LRM.Employees
 
         public async Task<PagedResultExtendDto<EmployeeDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listEmployees = _employeeRepository.GetAllIncluding(x => x.Position, x => x.OrganizationUnit);
+            var keyword = input.Keyword.ToLower();
+            var listEmployees = _employeeRepository.GetAllIncluding(x => x.Position, x => x.OrganizationUnit).Where(x => x.Code.Contains(keyword) ||
+                                                                                                                x.Name.ToLower().Contains(keyword) ||
+                                                                                                                x.Email.ToLower().Contains(keyword));
             var items = listEmployees.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<EmployeeDto>>(items);
             listItems = listItems.Select(x => { x.OrganizationUnitName = x.OrganizationUnit?.DisplayName; x.OrganizationUnit = null; return x; }).ToList();

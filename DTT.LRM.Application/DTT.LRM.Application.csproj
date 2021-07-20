@@ -330,6 +330,9 @@
     <Compile Include="Share\CountStatus.cs" />
     <Compile Include="Share\PagedResultExtendDto.cs" />
     <Compile Include="Share\PagedResultRequestExtendDto.cs" />
+    <Compile Include="Statistics\Dto\StatisticDto.cs" />
+    <Compile Include="Statistics\IStatisticAppService.cs" />
+    <Compile Include="Statistics\StatisticAppService.cs" />
     <Compile Include="Users\Dto\CreateUserDto.cs" />
     <Compile Include="Users\Dto\UpdateUserDto.cs" />
     <Compile Include="Users\Dto\UserDto.cs" />

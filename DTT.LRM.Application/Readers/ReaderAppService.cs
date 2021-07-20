@@ -50,7 +50,10 @@ namespace DTT.LRM.Readers
 
         public async Task<PagedResultExtendDto<ReaderDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listReaders = _readerRepository.GetAllIncluding(x => x.Position, x=> x.OrganizationUnit);
+            var keyword = input.Keyword.ToLower();
+            var listReaders = _readerRepository.GetAllIncluding(x => x.Position, x=> x.OrganizationUnit).Where(x=>x.Code.Contains(keyword)||
+                                                                                                                x.Name.ToLower().Contains(keyword)||
+                                                                                                                x.Email.ToLower().Contains(keyword));
             var items = listReaders.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<ReaderDto>>(items);
             listItems = listItems.Select(x => { x.OrganizationUnitName = x.OrganizationUnit?.DisplayName; x.OrganizationUnit = null; return x; }).ToList();

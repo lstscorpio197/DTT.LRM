@@ -45,7 +45,11 @@ namespace DTT.LRM.GiveBacks
 
         public async Task<PagedResultExtendDto<GiveBackDto>> GetAll(PagedResultRequestExtendDto input)
         {
-            var listBorrows = _giveBackRepository.GetAllIncluding(x => x.Reader, x=>x.Employee);
+            var keyword = input.Keyword.ToLower();
+            var listBorrows = _giveBackRepository.GetAllIncluding(x => x.Reader, x => x.Employee).Where(x => x.Code.Contains(keyword) ||
+                                                                                                          x.Employee.Name.ToLower().Contains(keyword) ||
+                                                                                                          x.Reader.Name.ToLower().Contains(keyword) ||
+                                                                                                          x.Reader.Code.Equals(keyword));
             var items = listBorrows.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<GiveBackDto>>(items);
             return new PagedResultExtendDto<GiveBackDto>(totalCount: listBorrows.Count(), items: listItems, countStatus: null);

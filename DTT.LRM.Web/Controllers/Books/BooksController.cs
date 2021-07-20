@@ -37,13 +37,14 @@ namespace DTT.LRM.Web.Controllers.Books
             return View();
         }
 
-        public async Task<JsonResult> GetDataTable(string keyword)
+        public async Task<JsonResult> GetDataTable(string keyword ="", int? status=null)
         {
             int start = Convert.ToInt32(Request["start"]);
             var filter = new PagedResultRequestExtendDto
             {
                 SkipCount = start,
-                Keyword = keyword
+                Keyword = keyword,
+                Status = status
             };
             var data = await _bookAppService.GetAll(filter);
             return Json(new

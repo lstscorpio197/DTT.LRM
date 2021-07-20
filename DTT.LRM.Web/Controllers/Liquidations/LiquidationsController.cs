@@ -50,7 +50,7 @@ namespace DTT.LRM.Web.Controllers.Liquidations
             return View();
         }
 
-        public async Task<JsonResult> GetDataTable(string keyword)
+        public async Task<JsonResult> GetDataTable(string keyword = "")
         {
             int start = Convert.ToInt32(Request["start"]);
             var filter = new PagedResultRequestExtendDto
