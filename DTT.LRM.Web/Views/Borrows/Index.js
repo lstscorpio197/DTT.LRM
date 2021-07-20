@@ -1,7 +1,7 @@
 ﻿let _borrowService = abp.services.app.borrow;
 
 $(document).ready(function () {
-    $('#myTable').DataTable({
+    const table = $('#myTable').DataTable({
         destroy: true,
         pageLength: 10,
         searching: true,
@@ -29,6 +29,8 @@ $(document).ready(function () {
             type: 'post',
             data: function (data) {
                 maxResultCount = data.length;
+                data.status = $('[name=status]').val();
+                data.keyword = $('[name=searchkeyword]').val();
             },
             dataFilter: function (json) {
                 let data = JSON.parse(json);
@@ -93,6 +95,16 @@ $(document).ready(function () {
     $(document).on('click', '#myTable tbody tr td:not(.btn-checkbox)', function () {
         let id = $(this).closest('tr').data('id');
         window.location = abp.toAbsAppPath('Borrows/CreateOrUpdate?borrowId=' + id);
+    })
+    $(document).on('change', '[name=status]', function () {
+        table.draw();
+    })
+    $(document).on('click', '#searchicon', function () {
+        table.draw();
+    })
+    $(document).on('click', '#closeicon', function () {
+        $('[name=searchkeyword]').val('');
+        table.draw();
     })
 });
 

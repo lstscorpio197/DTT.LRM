@@ -26,23 +26,28 @@ namespace DTT.LRM.Statistics
         {
             var bookClassifyId = input.BookClassifyId.HasValue ? input.BookClassifyId.Value : -1;
             var bookFieldId = input.BookFieldId.HasValue ? input.BookFieldId.Value : -1;
+            var keyword = input.Keyword.ToLower();
             DateTime? startDate = input.DateStart;
             DateTime endDate = input.DateEnd.HasValue ? input.DateEnd.Value : DateTime.Today;
             if(!startDate.HasValue)
                 return new PagedResultExtendDto<StatisticDto>(totalCount: 0, items: new List<StatisticDto>(), countStatus: null);
             var listBook = _bookRepository.GetAllIncluding(x=>x.BookCategory.BookField).Where(x=>(bookClassifyId <=0 ? true : x.BookCategory.BookField.BookClassifyId == bookClassifyId)&&
                                                                                                  (bookFieldId <=0 ? true : x.BookCategory.BookFieldId == bookFieldId));
-            var listBookReader = _bookReaderUsingRepository.GetAllIncluding(x=>x.Book).GroupBy(x=>x.Book.BookCategoryId);
+            var listBookReader = _bookReaderUsingRepository.GetAllIncluding(x=>x.Book).GroupBy(x=>x.Book.BookCategoryId).ToList();
             var listRecord = listBook.GroupBy(x=>x.BookCategoryId).Select(x=>new StatisticDto
                                                                     {
-                                                                        BookCategory = x.First().BookCategory,
-                                                                        TotalCount = x.Count(),
+                                                                        BookCategory = x.FirstOrDefault().BookCategory,
+                                                                        Total = x.Count(),
                                                                         TotalLiquidation = x.Where(i=>i.Status == (int)LRMEnum.BookStatus.Liquidated).Count(),
                                                                         TotalLost = x.Where(i=>i.Status == (int)LRMEnum.BookStatus.Lost).Count(),
                                                                         TotalBorrow = 0,
-                                                                        TotalGiveBack = 0
-                                                                    });
-            foreach(var record in listRecord)
+                                                                        TotalGiveBack = 0,
+                                                                        BookCategoryName = x.FirstOrDefault().BookCategory.Name
+            }).Where(x=>x.BookCategoryName.ToLower().Contains(keyword)&&
+                        (bookFieldId <= 0 ? true : x.BookCategory.BookFieldId == bookFieldId)&&
+                        (bookClassifyId <=0 ? true:x.BookCategory.BookField.BookClassifyId == bookClassifyId));
+            var listItems = listRecord.OrderBy("bookCategoryName ASC").PageBy(input).ToList();
+            foreach (var record in listItems)
             {
                 var bookCategoryId = record.BookCategory.Id;
                 var listByCategoryId = listBookReader.FirstOrDefault(x => x.Key == bookCategoryId);
@@ -52,8 +57,47 @@ namespace DTT.LRM.Statistics
                                                                 DateTime.Compare(x.GiveBackDate.Value, startDate.Value) >= 0 &&
                                                                 DateTime.Compare(x.GiveBackDate.Value, endDate) <= 0).Count();
             }
-            var listItems = listRecord.OrderBy("bookCategoryName ASC").PageBy(input).ToList();
+            
             return new PagedResultExtendDto<StatisticDto>(totalCount: listRecord.Count(), items: listItems, countStatus: null);
+        }
+
+        public async Task<List<StatisticDto>> GetAllForExport(PagedResultRequestExtendDto input)
+        {
+            var bookClassifyId = input.BookClassifyId.HasValue ? input.BookClassifyId.Value : -1;
+            var bookFieldId = input.BookFieldId.HasValue ? input.BookFieldId.Value : -1;
+            var keyword = input.Keyword.ToLower();
+            DateTime? startDate = input.DateStart;
+            DateTime endDate = input.DateEnd.HasValue ? input.DateEnd.Value : DateTime.Today;
+            if (!startDate.HasValue)
+                return new List<StatisticDto>();
+            var listBook = _bookRepository.GetAllIncluding(x => x.BookCategory.BookField).Where(x => (bookClassifyId <= 0 ? true : x.BookCategory.BookField.BookClassifyId == bookClassifyId) &&
+                                                                                                   (bookFieldId <= 0 ? true : x.BookCategory.BookFieldId == bookFieldId));
+            var listBookReader = _bookReaderUsingRepository.GetAllIncluding(x => x.Book).GroupBy(x => x.Book.BookCategoryId).ToList();
+            var listRecord = listBook.GroupBy(x => x.BookCategoryId).Select(x => new StatisticDto
+            {
+                BookCategory = x.FirstOrDefault().BookCategory,
+                Total = x.Count(),
+                TotalLiquidation = x.Where(i => i.Status == (int)LRMEnum.BookStatus.Liquidated).Count(),
+                TotalLost = x.Where(i => i.Status == (int)LRMEnum.BookStatus.Lost).Count(),
+                TotalBorrow = 0,
+                TotalGiveBack = 0,
+                BookCategoryName = x.FirstOrDefault().BookCategory.Name
+            }).Where(x => x.BookCategoryName.ToLower().Contains(keyword) &&
+                        (bookFieldId <= 0 ? true : x.BookCategory.BookFieldId == bookFieldId) &&
+                        (bookClassifyId <= 0 ? true : x.BookCategory.BookField.BookClassifyId == bookClassifyId));
+            var listItems = listRecord.ToList();
+            foreach (var record in listItems)
+            {
+                var bookCategoryId = record.BookCategory.Id;
+                var listByCategoryId = listBookReader.FirstOrDefault(x => x.Key == bookCategoryId);
+                record.TotalBorrow = listByCategoryId.Where(x => DateTime.Compare(x.BorrowDate, startDate.Value) >= 0 &&
+                                                               DateTime.Compare(x.BorrowDate, endDate) <= 0).Count();
+                record.TotalGiveBack = listByCategoryId.Where(x => x.GiveBackDate.HasValue &&
+                                                                DateTime.Compare(x.GiveBackDate.Value, startDate.Value) >= 0 &&
+                                                                DateTime.Compare(x.GiveBackDate.Value, endDate) <= 0).Count();
+            }
+
+            return listItems;
         }
     }
 }

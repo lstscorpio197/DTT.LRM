@@ -48,9 +48,9 @@ namespace DTT.LRM.Borrows
         {
             var keyword = input.Keyword.ToLower();
             var status = input.Status.HasValue ? input.Status.Value : -1;
-            var listBorrows = _borrowRepository.GetAllIncluding(x => x.Reader).Where(x=>x.Code.Contains(keyword) ||
+            var listBorrows = _borrowRepository.GetAllIncluding(x => x.Reader).Where(x=>(x.Code.Contains(keyword) ||
                                                                                         x.Creator.ToLower().Contains(keyword)||
-                                                                                        x.Reader.Name.ToLower().Contains(keyword)||
+                                                                                        x.Reader.Name.ToLower().Contains(keyword))&&
                                                                                         (status < 0 ? true : x.Status == status));
             var items = listBorrows.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<BorrowDto>>(items);

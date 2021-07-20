@@ -1,5 +1,6 @@
 ﻿@using Abp.Authorization.Users
 @using Abp.Web.Mvc.Extensions
+@using DTT.LRM.Authorization
 @model DTT.LRM.Web.Models.BookFields.CreateOrUpdateModel
 @{
     ViewBag.ActiveMenu = PageNames.BookFields; //The menu item will be active for this page.
@@ -7,6 +8,11 @@
 @section scripts
 {
     <script src="~/Views/BookFields/CreateOrUpdate.js"></script>
+}
+
+@{
+    var isCanEdit = IsGranted(PermissionNames.Pages_BookFields_Update);
+    var isCanCreate = IsGranted(PermissionNames.Pages_BookFields_Create);
 }
 <div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
     <h4>
@@ -23,10 +29,15 @@
         </a>
         Danh mục lĩnh vực sách
     </h4>
-    <button class="btn btn-primary d-flex align-items-center submit" type="button">
-        <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
-        Lưu
-    </button>
+
+    @if ((isCanCreate && Model.BookField.Id == 0) || (isCanEdit && Model.BookField.Id > 0))
+    {
+        <button class="btn btn-primary d-flex align-items-center submit" type="button">
+            <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+            Lưu
+        </button>
+    }
+
 </div>
 <form name="BookFieldForm" role="form" novalidate class="form-validation" id="form-wrapper">
     @*<ul class="nav nav-tabs tab-nav-right mb-3" role="tablist">
@@ -67,7 +78,7 @@
                                 <option value="">-- Chọn phân loại sách --</option>
                                 @foreach (var item in Model.ListBookClassify)
                                 {
-                                    <option value="@item.Id" @(item.Id == Model.BookField.BookClassifyId?"selected":"")>@item.Name</option>
+                                    <option value="@item.Id" @(item.Id == Model.BookField.BookClassifyId ? "selected" : "")>@item.Name</option>
                                 }
                             </select>
                         </div>
@@ -95,7 +106,7 @@
                 <div class="col-sm-12">
                     <div class="form-group form-float">
                         <div class="">
-                            <input id="status" type="checkbox" name="Status" value="true" @((Model.BookField.Status||Model.BookField.Id==0) ? "checked" : "") class="form-control" />
+                            <input id="status" type="checkbox" name="Status" value="true" @((Model.BookField.Status || Model.BookField.Id == 0) ? "checked" : "") class="form-control" />
                             <label for="status" class="form-label">Đang sử dụng</label>
                         </div>
                     </div>

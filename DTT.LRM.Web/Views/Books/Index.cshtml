@@ -1,5 +1,7 @@
 ﻿@using Abp.Authorization.Users
 @using Abp.Web.Mvc.Extensions
+@using DTT.LRM.Authorization
+@using DTT.LRM
 @{
     ViewBag.ActiveMenu = PageNames.Books; //The menu item will be active for this page.
 }
@@ -7,13 +9,36 @@
 {
     @Html.IncludeScript("~/Views/Books/Index.js")
 }
+
+@{
+    var isCanCreate = IsGranted(PermissionNames.Pages_Books_Create);
+}
 <div id="table-wrapper">
     <div class="mb-2 d-flex align-items-center justify-content-between">
         <h4>
             Danh sách sách
         </h4>
-        <div class="btn btn-primary">
-            <a class="link-default" href="http://localhost:61814/Books/CreateOrUpdate">Thêm sách</a>
+        @if (isCanCreate)
+        {
+            <div class="btn btn-primary">
+                <a class="link-default" href="http://localhost:61814/Books/CreateOrUpdate">Thêm sách</a>
+            </div>
+        }
+
+    </div>
+    <div style="margin-top:30px;">
+        <div class="col-sm-4">
+            <div class="form-group form-float">
+                <div class="form-line">
+                    <select name="status">
+                        <option value="">-- Trạng thái sách --</option>
+                        <option value="@((int)LRMEnum.BookStatus.UnUsed)"> Chưa sử dụng </option>
+                        <option value="@((int)LRMEnum.BookStatus.Lost)"> Đã  bị mất </option>
+                        <option value="@((int)LRMEnum.BookStatus.Using)"> Đang được mượn </option>
+                        <option value="@((int)LRMEnum.BookStatus.Liquidated)"> Đã thanh lý </option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <table class="table data-table" id="myTable">
