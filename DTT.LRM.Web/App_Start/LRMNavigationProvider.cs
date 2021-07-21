@@ -31,7 +31,8 @@ namespace DTT.LRM.Web
                         L("SearchInfos"),
                         url: "SearchInfos",
                         icon: "search",
-                        requiresAuthentication: true
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_SearchInfos)
                     )
                 )
                 .AddItem(
@@ -40,7 +41,8 @@ namespace DTT.LRM.Web
                         L("MyBooks"),
                         url: "MyBooks",
                         icon: "book",
-                        requiresAuthentication: true
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_MyBooks)
                     )
                 )
                 .AddItem( //Menu items below is just for demonstration!
@@ -116,8 +118,8 @@ namespace DTT.LRM.Web
                         L("Statistics"),
                         url: "Statistics",
                         icon: "menu",
-                        requiresAuthentication: true
-                        //permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Employees)
+                        requiresAuthentication: true,
+                        permissionDependency: new SimplePermissionDependency(PermissionNames.Pages_Statistics)
                     )
                 )
                 .AddItem( //Menu items below is just for demonstration!

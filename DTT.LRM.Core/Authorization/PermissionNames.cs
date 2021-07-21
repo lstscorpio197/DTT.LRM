@@ -74,5 +74,9 @@
         public const string Pages_Systems = "Pages.Systems";
         public const string Pages_Administration = "Pages.Administration";
 
+        public const string Pages_SearchInfos = "Pages.SearchInfos";
+        public const string Pages_Statistics = "Pages.Statistics";
+        public const string Pages_MyBooks = "Pages.MyBooks";
+
     }
 }

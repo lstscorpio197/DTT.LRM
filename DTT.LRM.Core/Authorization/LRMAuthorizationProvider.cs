@@ -78,6 +78,10 @@ namespace DTT.LRM.Authorization
 
             context.CreatePermission(PermissionNames.Pages_Liquidations, L("View"));
             context.CreatePermission(PermissionNames.Pages_Liquidations_Create, L("Add"));
+
+            context.CreatePermission(PermissionNames.Pages_MyBooks, L("Add"));
+            context.CreatePermission(PermissionNames.Pages_Statistics, L("Statistics"));
+            context.CreatePermission(PermissionNames.Pages_SearchInfos, L("SearchInfos"));
         }
 
         private static ILocalizableString L(string name)
