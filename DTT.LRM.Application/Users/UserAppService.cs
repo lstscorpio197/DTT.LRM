@@ -151,8 +151,8 @@ namespace DTT.LRM.Users
             var listUser = _userRepository.GetAll().Where(x=>x.Id > 1 &&
                                                             (x.UserName.ToLower().Contains(keyword)||
                                                             x.Surname.ToLower().Contains(keyword)||
-                                                            x.EmailAddress.ToLower().Contains(keyword)||
-                                                            (status == null ? true : (status==0 ? x.IsActive == false : x.IsActive == true))));
+                                                            x.EmailAddress.ToLower().Contains(keyword))&&
+                                                            (status == null ? true : (status==0 ? x.IsActive == false : x.IsActive == true)));
             var items = listUser.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<UserIndexDto>>(items);
             return new PagedResultExtendDto<UserIndexDto>(totalCount: listUser.Count(), items: listItems, countStatus: null);

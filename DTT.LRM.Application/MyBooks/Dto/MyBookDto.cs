@@ -42,7 +42,7 @@ namespace DTT.LRM.MyBooks.Dto
                     var a = DateTime.Compare(GiveBackDateExpect.Value, DateTime.Now);
                     if (IsUse == (int)LRMEnum.BookStatus.Using)
                     {
-                        if (a == 1)
+                        if (a == -1)
                             return "Quá hạn";
                         return "Đang mượn";
                     }

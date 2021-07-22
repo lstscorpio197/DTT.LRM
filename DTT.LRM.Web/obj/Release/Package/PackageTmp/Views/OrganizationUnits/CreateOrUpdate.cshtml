@@ -1,0 +1,91 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@using DTT.LRM.Authorization
+@model DTT.LRM.Web.Models.OrganizationUnits.CreateOrUpdateModel
+@{
+    ViewBag.ActiveMenu = PageNames.OrganizationUnits; //The menu item will be active for this page.
+}
+@section scripts
+{
+    <script src="~/Views/OrganizationUnits/CreateOrUpdate.js"></script>
+}
+
+@{
+    var isCanEdit = IsGranted(PermissionNames.Pages_OrganizationUnits_Update);
+    var isCanCreate = IsGranted(PermissionNames.Pages_OrganizationUnits_Create);
+}
+<div class="d-flex align-items-center justify-content-between pd-5 bg-white text-black">
+    <h4>
+        <a href="~/OrganizationUnits/" class="mr-2">
+            <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 288.312 288.312" style="enable-background:new 0 0 288.312 288.312;" xml:space="preserve">
+            <g>
+            <path id="Subdirectory_Arrow_Up_Left" d="M127.353,3.555c-4.704-4.74-12.319-4.74-17.011,0L15.314,99.653
+		                    c-4.74,4.788-4.547,12.884,0.313,17.48l94.715,95.785c4.704,4.74,12.319,4.74,17.011,0c4.704-4.74,4.704-12.427,0-17.167
+		                    l-74.444-75.274h199.474v155.804c0,6.641,5.39,12.03,12.03,12.03c6.641,0,12.03-5.39,12.03-12.03V108.231
+		                    c0-6.641-5.39-12.03-12.03-12.03H52.704l74.648-75.49C132.056,15.982,132.056,8.295,127.353,3.555z" />
+                    </g>
+                </svg>
+        </a>
+        Danh mục phòng ban
+    </h4>
+    @if ((isCanCreate && Model.OrganizationUnit.Id == 0) || (isCanEdit && Model.OrganizationUnit.Id > 0))
+    {
+        <button class="btn btn-primary d-flex align-items-center submit" type="button">
+            <svg class="mr-2 color-white" width="20px" height="20px" viewBox="0 0 200 200" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title /><path d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Zm30-72.5H110v-20a10,10,0,0,0-20,0v20H70a10,10,0,0,0,0,20H90v20a10,10,0,0,0,20,0v-20h20a10,10,0,0,0,0-20Z" /></svg>
+            Lưu
+        </button>
+    }
+</div>
+<form name="OrganizationUnitForm" role="form" novalidate class="form-validation" id="form-wrapper">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane animated fadeIn active" id="edit-user-details">
+            <input type="hidden" name="Id" value="@Model.OrganizationUnit.Id" />
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="code" type="text" name="Code" value="@Model.OrganizationUnit.Code" class="validate form-control">
+                            <label for="code" class="form-label">Mã phòng ban</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input id="name" type="text" name="DisplayName" value="@Model.OrganizationUnit.DisplayName" class="validate form-control">
+                            <label for="name" class="form-label">Tên phòng ban</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" style="margin-top:10px;">
+                <div class="col-sm-12">
+                    <div class="form-group form-float">
+                        <div class="">
+                            <input id="ischild" type="checkbox" name="IsChild" @(Model.OrganizationUnit.ParentId.HasValue ? "checked" : "") class="form-control" />
+                            <label for="ischild" class="form-label">Thuộc phòng ban</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" id="IsParent" @(Model.OrganizationUnit.ParentId.HasValue ? "" : "style=display:none")>
+                <div class="col-sm-6">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <select class="w-100 selectpicker show-tick" data-live-search="true" name="ParentId">
+                                <option value="">-- Chọn phòng ban --</option>
+                                @foreach (var item in Model.ListOrganizationUnits)
+                                {
+                                    <option value="@item.Id" @(item.Id == Model.OrganizationUnit.ParentId ? "selected" : "")>@item.DisplayName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

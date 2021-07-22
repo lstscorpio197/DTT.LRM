@@ -1,0 +1,57 @@
+﻿@using Abp.Web.Mvc.Extensions
+@using DTT.LRM.Authorization
+@{
+    ViewBag.ActiveMenu = PageNames.Borrows; //The menu item will be active for this page.
+}
+@section scripts
+{
+    @Html.IncludeScript("~/Views/Borrows/Index.js")
+}
+
+@{
+    var isCanCreate = IsGranted(PermissionNames.Pages_Borrows_Create);
+}
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Danh sách mượn sách
+        </h4>
+        @if (isCanCreate)
+        {
+            <div class="btn btn-primary">
+                <a class="link-default" href="~/Borrows/CreateOrUpdate">Thêm phiếu mượn</a>
+            </div>
+        }
+
+    </div>
+    <div style="margin-top:30px;">
+        <div class="col-sm-4">
+            <div class="form-group form-float">
+                <div class="form-line">
+                    <select name="status">
+                        <option value="">-- Trạng thái phiếu --</option>
+                        <option value="0"> Chờ thực hiện </option>
+                        <option value="1"> Đã thực hiện </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã phiếu mượn</th>
+                <th scope="col">Người tạo</th>
+                <th scope="col">Ngày mượn</th>
+                <th scope="col">Độc giả</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+

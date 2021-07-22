@@ -1,0 +1,11 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.ActiveMenu = PageNames.Home; //The menu item will be active for this page.
+}
+@section styles {
+    <link href="~/lib/morris.js/morris.css" rel="stylesheet" />
+}
+@section scripts{
+    @Scripts.Render("~/Bundles/home-index")
+}
+<h1>CHÀO MỪNG BẠN ĐÃ QUAY TRỞ LẠI</h1>

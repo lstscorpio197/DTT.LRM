@@ -1,7 +1,7 @@
 ﻿let _userService = abp.services.app.user;
 
 $(document).ready(function () {
-    $('#myTable').DataTable({
+    const table = $('#myTable').DataTable({
         destroy: true,
         pageLength: 10,
         searching: true,
@@ -29,6 +29,7 @@ $(document).ready(function () {
             type: 'post',
             data: function (data) {
                 maxResultCount = data.length;
+                data.keyword = $('[name=searchkeyword]').val();
             },
             dataFilter: function (json) {
                 let data = JSON.parse(json);
@@ -143,5 +144,13 @@ $(document).ready(function () {
                 }
             );
         }
+    })
+
+    $(document).on('click', '#searchicon', function () {
+        table.draw();
+    })
+    $(document).on('click', '#closeicon', function () {
+        $('[name=searchkeyword]').val('');
+        table.draw();
     })
 });

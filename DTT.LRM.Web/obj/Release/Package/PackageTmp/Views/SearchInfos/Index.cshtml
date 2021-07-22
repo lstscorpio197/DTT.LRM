@@ -1,0 +1,48 @@
+﻿@using Abp.Authorization.Users
+@using Abp.Web.Mvc.Extensions
+@{
+    ViewBag.ActiveMenu = PageNames.SearchInfos; //The menu item will be active for this page.
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/SearchInfos/Index.js")
+}
+
+<div id="table-wrapper">
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+        <h4>
+            Tra cứu thông tin
+        </h4>
+        <div class="btn btn-primary btnSearch">
+            <a class="link-default" href="#">Tra cứu</a>
+        </div>
+    </div>
+    <div class="">
+        <div class="col-sm-12">
+            <div class="form-group form-float">
+                <div class="form-line focused">
+                    <input type="text" name="Keyword" value="" class="validate form-control" placeholder="Mã sách, mã độc giả, tên sách, tên độc giả">
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table data-table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã độc giả</th>
+                <th scope="col">Tên độc giả</th>
+                <th scope="col">Mã sách</th>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Ngày mượn</th>
+                <th scope="col">Ngày trả dự kiến</th>
+                <th scope="col">Ngày trả</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+

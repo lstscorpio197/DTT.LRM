@@ -1550,7 +1550,6 @@
     <Content Include="lib\famfamfam-flags\dist\png\zm.png" />
     <Content Include="lib\famfamfam-flags\dist\png\zw.png" />
     <Content Include="lib\famfamfam-flags\dist\sprite\famfamfam-flags.css" />
-    <Content Include="lib\famfamfam-flags\dist\sprite\famfamfam-flags.min.css" />
     <Content Include="lib\famfamfam-flags\dist\sprite\famfamfam-flags.png" />
     <Content Include="lib\Flot\.gitignore" />
     <Content Include="lib\Flot\examples\ajax\index.html" />
@@ -1612,7 +1611,6 @@
     <Content Include="lib\Flot\LICENSE.txt" />
     <Content Include="lib\font-awesome\.gitignore" />
     <Content Include="lib\font-awesome\css\font-awesome.css" />
-    <Content Include="lib\font-awesome\css\font-awesome.min.css" />
     <Content Include="lib\font-awesome\HELP-US-OUT.txt" />
     <Content Include="lib\jquery-countTo\example.html" />
     <Content Include="lib\jquery-countTo\jquery.countTo.js" />
