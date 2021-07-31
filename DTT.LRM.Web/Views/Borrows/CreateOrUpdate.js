@@ -1,4 +1,5 @@
 ﻿let _bookService = abp.services.app.book;
+console.log(_bookService);
 let _$form = $('form[name=BorrowForm]')
 
 let rowDefault = $('#tblBookBorrow tbody tr:first-child').clone();
@@ -179,6 +180,12 @@ $(document).on('change', 'select[name=BookCategoryId]', function () {
                 html += `<option value="${book.id}">${book.code}</option>`;
             }
             $row.find('select[name=BookId]').html(html).selectpicker('refresh');
+        })
+        _bookService.countBookBorrowByCategoryId(ipn.BookCategoryId).done(function (data) {
+            if (data == 0) {
+                abp.notify.warn("Sách này không còn trong thư viện hoặc đã được mượn hết.");
+            }
+            $row.find('.amount').val(data);
         })
     }
     else {

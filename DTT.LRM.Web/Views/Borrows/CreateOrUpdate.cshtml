@@ -169,9 +169,14 @@
                         {
                             <th scope="col">Mã sách</th>
                         }
-                        <th scope="col">Tác giả</th>
-                        <th scope="col">Nhà xuất bản</th>
-                        <th scope="col">Năm xuất bản</th>
+                        <th scope="col" class="hidden">Tác giả</th>
+                        <th scope="col" class="hidden">Nhà xuất bản</th>
+                        <th scope="col" class="hidden">Năm xuất bản</th>
+                        @if (Model.Borrow.Id == 0)
+                        {
+                            <th scope="col" class="">Còn lại</th>
+                        }
+
                         <th scope="col">Ngày trả dự kiến</th>
                     </tr>
                 </thead>
@@ -262,15 +267,18 @@
                                     </select>
                                 </td>
                             }
-                            <td>
-                                <input type="text" class="form-control author" value="" readonly />
+                            <td class="hidden">
+                                <input type="hidden" class="form-control author" value="" readonly />
                             </td>
-                            <td>
+                            <td class="hidden">
                                 <input type="hidden" class="form-control publisherid" value="" readonly />
-                                <input type="text" class="form-control publisher" value="" readonly />
+                                <input type="hidden" class="form-control publisher" value="" readonly />
                             </td>
-                            <td>
-                                <input type="text" class="form-control releaseyear" value="" readonly />
+                            <td class="hidden">
+                                <input type="hidden" class="form-control releaseyear" value="" readonly />
+                            </td>
+                            <td class="">
+                                <input type="text" class="form-control amount" value="" readonly />
                             </td>
                             <td>
                                 <input type="date" class="form-control givebackdate" value="" readonly />

@@ -22,6 +22,16 @@ namespace DTT.LRM.Roles.Dto
         public string Description { get; set; }
 
         public bool? IsDefault { get; set; }
+        public string IsDefaultText
+        {
+            get
+            {
+                if (IsDefault.Value)
+                    return "fa fa-check";
+                else
+                    return "fa fa-ban";
+            }
+        }
         public bool IsStatic { get; set; }
 
         public List<string> GrantedPermissions { get; set; }

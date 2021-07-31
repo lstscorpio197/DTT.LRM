@@ -19,5 +19,6 @@ namespace DTT.LRM.Books
         Task<List<BookDto>> GetListBookForBorrow(AdvanceSearchBookDto input);
         Task<int> UpdateBookStatus(List<int> listBookIds, int status);
         Task<int> UpdateBookStatusLiquidation(int bookCategotyId, string author, int releaseYear, int publisherId);
+        Task<int> CountBookBorrowByCategoryId(int bookCategotyId);
     }
 }

@@ -69,8 +69,8 @@
                     }
                 },
                 {
-                    "data": "isDefault", className: "", render: function (text, display, data) {
-                        return `<span>${text}</span>`;
+                    "data": "isDefaultText", className: "", render: function (text, display, data) {
+                        return `<i class="${text}"></i>`;
                     }
                 },
             ],

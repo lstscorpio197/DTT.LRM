@@ -20,6 +20,16 @@ namespace DTT.LRM.Books
         {
             _bookRepository = bookRepository;
         }
+
+        public async Task<int> CountBookBorrowByCategoryId(int bookCategotyId)
+        {
+            if (bookCategotyId > 0)
+            {
+                return _bookRepository.GetAll().Where(x => x.BookCategoryId == bookCategotyId && x.Status == (int)LRMEnum.BookStatus.UnUsed).Count();
+            }
+            return 0;
+        }
+
         public async Task<int> CreateOrUpdateAsync(CreateOrUpdateBookDto input)
         {
             try
@@ -68,13 +78,13 @@ namespace DTT.LRM.Books
         {
             var keyword = input.Keyword.ToLower();
             var status = input.Status.HasValue ? input.Status : null;
-            var listBooks = _bookRepository.GetAllIncluding(x=>x.Publisher,x=>x.BookCategory.BookField.BookClassify).Where(x=> (status == null ? true : x.Status == status) &&
-                                                                                                                                (x.Code.Contains(keyword)||
-                                                                                                                                x.Name.ToLower().Contains(keyword)||
-                                                                                                                                x.Author.ToLower().Contains(keyword)||
-                                                                                                                                x.ReleaseYear.ToString() == keyword||
-                                                                                                                                x.Language.ToLower().Contains(keyword)||
-                                                                                                                                x.Publisher.Name.ToLower().Contains(keyword)));
+            var listBooks = _bookRepository.GetAllIncluding(x => x.Publisher, x => x.BookCategory.BookField.BookClassify).Where(x => (status == null ? true : x.Status == status) &&
+                                                                                                                                     (x.Code.Contains(keyword) ||
+                                                                                                                                     x.Name.ToLower().Contains(keyword) ||
+                                                                                                                                     x.Author.ToLower().Contains(keyword) ||
+                                                                                                                                     x.ReleaseYear.ToString() == keyword ||
+                                                                                                                                     x.Language.ToLower().Contains(keyword) ||
+                                                                                                                                     x.Publisher.Name.ToLower().Contains(keyword)));
             var items = listBooks.OrderBy("id DESC").PageBy(input).ToList();
             var listItems = ObjectMapper.Map<List<BookDto>>(items);
             return new PagedResultExtendDto<BookDto>(totalCount: listBooks.Count(), items: listItems, countStatus: null);
@@ -97,11 +107,11 @@ namespace DTT.LRM.Books
         public async Task<List<BookDto>> GetListBookForBorrow(AdvanceSearchBookDto input)
         {
             var author = string.IsNullOrEmpty(input.Author) ? string.Empty : input.Author.ToLower();
-            var query = _bookRepository.GetAllIncluding(x=>x.Publisher);
+            var query = _bookRepository.GetAllIncluding(x => x.Publisher);
             var listBook = query.Where(x => x.Author.ToLower().Contains(author) &&
                                         (input.ReleaseYear > 0 ? x.ReleaseYear == input.ReleaseYear : true) &&
                                         (input.PublisherId > 0 ? x.PublisherId == input.PublisherId : true) &&
-                                        x.Status == (int)LRMEnum.BookStatus.UnUsed&&
+                                        x.Status == (int)LRMEnum.BookStatus.UnUsed &&
                                         x.BookCategoryId == input.BookCategoryId)
                                 .ToList();
             return ObjectMapper.Map<List<BookDto>>(listBook);
