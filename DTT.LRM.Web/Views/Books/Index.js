@@ -31,6 +31,8 @@ $(document).ready(function () {
                 maxResultCount = data.length;
                 data.status = $('[name=status]').val();
                 data.keyword = $('[name=searchkeyword]').val();
+                data.bookClassifyId = $('[name=BookClassifyId]').val();
+                data.bookFieldId = $('[name=BookFieldId]').val();
             },
             dataFilter: function (json) {
                 let data = JSON.parse(json);
@@ -56,6 +58,11 @@ $(document).ready(function () {
             },
             {
                 "data": "name", className: "", render: function (text, display, data) {
+                    return `<span>${text}</span>`;
+                }
+            },
+            {
+                "data": "author", className: "", render: function (text, display, data) {
                     return `<span>${text}</span>`;
                 }
             },
@@ -92,6 +99,12 @@ $(document).ready(function () {
     })
 
     $(document).on('change', '[name=status]', function () {
+        table.draw();
+    })
+    $(document).on('change', '[name=BookClassifyId]', function () {
+        table.draw();
+    })
+    $(document).on('change', '[name=BookFieldId]', function () {
         table.draw();
     })
     $(document).on('click', '#searchicon', function () {

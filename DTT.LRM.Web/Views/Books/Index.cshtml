@@ -40,6 +40,32 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-4">
+            <div class="form-group form-float">
+                <div class="form-line">
+                    <select name="BookClassifyId">
+                        <option value="">-- Phân loại sách --</option>
+                        @foreach (var item in Model.ListBookClassifies)
+                        {
+                            <option value="@item.Id"> @item.Name </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group form-float">
+                <div class="form-line">
+                    <select name="BookFieldId">
+                        <option value="">-- Lĩnh vực sách --</option>
+                        @foreach (var item in Model.ListBookFields)
+                        {
+                            <option value="@item.Id"> @item.Name </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
     <table class="table data-table" id="myTable">
         <thead>
@@ -47,6 +73,7 @@
                 <th scope="col">STT</th>
                 <th scope="col">Mã sách</th>
                 <th scope="col">Tên sách</th>
+                <th scope="col">Tác giả</th>
                 <th scope="col">Nhà xuất bản</th>
                 <th scope="col">Năm xuất bản</th>
                 <th scope="col">Ghi chú</th>

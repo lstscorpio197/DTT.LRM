@@ -76,9 +76,13 @@ namespace DTT.LRM.Books
 
         public async Task<PagedResultExtendDto<BookDto>> GetAll(PagedResultRequestExtendDto input)
         {
+            var bookClassifyId = input.BookClassifyId.HasValue ? input.BookClassifyId.Value : -1;
+            var bookFieldId = input.BookFieldId.HasValue ? input.BookFieldId.Value : -1;
             var keyword = input.Keyword.ToLower();
             var status = input.Status.HasValue ? input.Status : null;
-            var listBooks = _bookRepository.GetAllIncluding(x => x.Publisher, x => x.BookCategory.BookField.BookClassify).Where(x => (status == null ? true : x.Status == status) &&
+            var listBooks = _bookRepository.GetAllIncluding(x => x.Publisher, x => x.BookCategory.BookField.BookClassify).Where(x => (bookClassifyId <= 0 ? true : x.BookCategory.BookField.BookClassifyId == bookClassifyId) &&
+                                                                                                                                    (bookFieldId <= 0 ? true : x.BookCategory.BookFieldId == bookFieldId) &&
+                                                                                                                                    (status == null ? true : x.Status == status) &&
                                                                                                                                      (x.Code.Contains(keyword) ||
                                                                                                                                      x.Name.ToLower().Contains(keyword) ||
                                                                                                                                      x.Author.ToLower().Contains(keyword) ||

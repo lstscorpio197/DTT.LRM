@@ -2853,6 +2853,7 @@
     <Compile Include="Models\BookClassifies\CreateOrUpdateModel.cs" />
     <Compile Include="Models\BookFields\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Books\CreateOrUpdateModel.cs" />
+    <Compile Include="Models\Books\IndexViewModel.cs" />
     <Compile Include="Models\Borrows\CreateOrUpdateModel.cs" />
     <Compile Include="Models\Common\Modals\ModalHeaderViewModel.cs" />
     <Compile Include="Models\Employees\CreateOrUpdateModel.cs" />

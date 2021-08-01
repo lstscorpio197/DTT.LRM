@@ -2,6 +2,7 @@
 using DTT.LRM.BookCategories;
 using DTT.LRM.BookCategories.Dto;
 using DTT.LRM.BookClassifies;
+using DTT.LRM.BookFields;
 using DTT.LRM.Books;
 using DTT.LRM.Books.Dto;
 using DTT.LRM.Publishers;
@@ -22,29 +23,36 @@ namespace DTT.LRM.Web.Controllers.Books
     {
         private readonly IBookAppService _bookAppService;
         private readonly IBookClassifyAppService _bookClassifyAppService;
+        private readonly IBookFieldAppService _bookFieldAppService;
         private readonly IBookCategoryAppService _bookCategoryAppService;
         private readonly IPublisherAppService _publisherService;
-        public BooksController(IBookAppService bookAppService, IBookClassifyAppService bookClassifyAppService, IPublisherAppService publisherService, IBookCategoryAppService bookCategoryAppService)
+        public BooksController(IBookAppService bookAppService, IBookClassifyAppService bookClassifyAppService, IBookFieldAppService bookFieldAppService, IPublisherAppService publisherService, IBookCategoryAppService bookCategoryAppService)
         {
             _bookAppService = bookAppService;
             _bookClassifyAppService = bookClassifyAppService;
             _publisherService = publisherService;
             _bookCategoryAppService = bookCategoryAppService;
+            _bookFieldAppService = bookFieldAppService;
         }
         // GET: Books
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = new IndexViewModel();
+            model.ListBookClassifies = await _bookClassifyAppService.GetAllForSelect();
+            model.ListBookFields = await _bookFieldAppService.GetAllForSelect();
+            return View(model);
         }
 
-        public async Task<JsonResult> GetDataTable(string keyword ="", int? status=null)
+        public async Task<JsonResult> GetDataTable(string keyword ="", int? status=null, int? bookClassifyId = null, int? bookFieldId = null)
         {
             int start = Convert.ToInt32(Request["start"]);
             var filter = new PagedResultRequestExtendDto
             {
                 SkipCount = start,
                 Keyword = keyword,
-                Status = status
+                Status = status,
+                BookClassifyId = bookClassifyId,
+                BookFieldId = bookFieldId
             };
             var data = await _bookAppService.GetAll(filter);
             return Json(new
